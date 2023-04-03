@@ -106,7 +106,13 @@ export default function Income() {
   ];
   
     const conditionalRowStyles = [
-      
+      {
+        when: (row) => listIncome.indexOf(row) === 0,
+        style: {
+          backgroundColor: "#F9F9F9",
+          color: "#000",
+        },
+      },
     ];
     
   return (
