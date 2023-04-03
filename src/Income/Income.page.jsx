@@ -17,13 +17,13 @@ export default function Income() {
   const dispatch = useDispatch()
   const { listIncome } = useSelector((state) => state.income);
   const [data, setData] = useState(listIncome);
-  const [nam, setNam] = useState('');
+  const [year, setYear] = useState('');
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   
 
     const fetchData = useCallback(() => {
-      dispatch(getIncomeAction("dfc7bc8e19751c1d7ae3c668cda7f5c6", nam));
-    }, [dispatch,nam]);
+      dispatch(getIncomeAction("dfc7bc8e19751c1d7ae3c668cda7f5c6", year));
+    }, [dispatch,year]);
 
     useEffect(() => {
       fetchData();
@@ -37,8 +37,10 @@ export default function Income() {
   
     const handleButtonClick = () => {
       setIsButtonClicked(true);
-      setNam(document.getElementById("Select").value);
+      setYear(document.getElementById("Select").value);
     };
+
+   
     
     const columns = [
       {
@@ -49,7 +51,7 @@ export default function Income() {
       {
         name: "Số lượng bán",
         selector: (row) => row.t_sl_xuat,
-        sortable: true,
+        sortable: false,
         format: (row) => formatCurrency(row.t_sl_xuat),
       },
       {
@@ -61,7 +63,7 @@ export default function Income() {
       {
         name: "CK sản phẩm",
         selector: (row) => row.t_tien_ck,
-        sortable: true,
+        sortable: false,
         format: (row) => formatCurrency(row.t_tien_ck),
       },
       {
@@ -101,10 +103,12 @@ export default function Income() {
         format: (row) => formatCurrency(row.t_tien_tl),
       },
       
-    ];
+  ];
+  
     const conditionalRowStyles = [
       
     ];
+    
   return (
     <>
       <div className="scrollable" style={{ paddingTop:'5px' }}> 
@@ -152,12 +156,16 @@ export default function Income() {
           
         </Col>
         <Col md={9} >
-          <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px'  }}>
+
+          <Form style={{ border: '1px solid #DDDDDD', marginTop: '60px', padding: '8px' }}>
+            
             <div className="content__table" style={{ marginTop: ' 20px'  }}> 
               <DataTable className="table__data"
                 noDataComponent="Năm"
                 columns={columns}
-                data={data}
+                data={data} 
+                fixedHeader={true}
+                fixedHeaderScrollHeight= "500px"
                 conditionalRowStyles={conditionalRowStyles}
                 highlightOnHover
                 selectableRows={false}

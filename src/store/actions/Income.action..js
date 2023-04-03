@@ -10,6 +10,10 @@ export const getIncomeAction = (token, nam) => {
         `api/60939744ac969b4078488026/dtbanletheothang?nam=${nam}&access_token=${token}`,
         "GET",
       );
+      // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop
+      const lastData = res.data.pop();
+      // đưa dữ liệu vừa lấy lên đầu bằng hàm unshift
+      res.data.unshift(lastData);
       await dispatch(getIncome(res.data));
     } catch (err) {
       console.log(err);
@@ -18,18 +22,6 @@ export const getIncomeAction = (token, nam) => {
   return get;
 };
 
-// export const searchIncomeAction = async (nam) => {
-//   try {
-//     const res = await callApis(
-//       // gte lớn hơn hoặc bằng, lte nhỏ hơn hoặc bằng
-//       `api/60939744ac969b4078488026/dtbanletheothang?nam=${nam}&access_token=dfc7bc8e19751c1d7ae3c668cda7f5c6`,
-//       "GET",
-//     );
-//     return res.data;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 
   

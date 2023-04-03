@@ -25,42 +25,33 @@ export default function Report(props) {
 
   const [data, setData] = useState(listReport);
 
-    const fetchData = useCallback(() => {
-      dispatch(getReportAction("flex.public.token"));
-    }, [dispatch]);
+  const fetchData = useCallback(() => {
+    dispatch(getReportAction("flex.public.token"));
+  }, [dispatch]);
 
-    useEffect(() => {
-      fetchData();
-    }, [fetchData]);
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
-    useEffect(() => {
+  useEffect(() => {
+    setData(listReport);
+  }, [listReport]);
+
+  const handleSearch = async (text, startDate, endDate) => {
+    if (text === "") {
       setData(listReport);
-    }, [listReport]);
-  
-  
-    const handleSearch = async (text, startDate, endDate) => {
-      if (text === "") {
-        setData(listReport);
-      } else {
-        let newData;
-          if (!startDate) {
-            startDate = new Date(0);
-          }
-          if (!endDate) {
-            endDate = new Date();
-          }
-          newData = await searchReportAction(text, startDate, endDate);
-          setData(newData);
-      }
-    };
-  
-  // const [search, setSearch] = useState("");
-
-  // const doSearch = (text) => {
-  //   const cleanText = text.trim().toLowerCase();
-  //   handleSearch(cleanText);
-  // };
-
+    } else {
+      let newData;
+        if (!startDate) {
+          startDate = new Date(0);
+        }
+        if (!endDate) { 
+          endDate = new Date();
+        }
+        newData = await searchReportAction(text, startDate, endDate);
+        setData(newData);
+    }
+  };
  
   const columns = [
     {
