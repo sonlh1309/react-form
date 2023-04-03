@@ -34,19 +34,4 @@ export const searchReportAction = async (text, startDate, endDate) => {
   }
 };
 
-// export const getReportAction2 = async (token) => {
- 
-//   try {
-//     const res = await callApi(
-//       `api/62e0b3885271e2560e8bb7d3/wlin_contract?access_token=${token}&limit=1000`,
-//       "GET",
-//     );
-   
-//   } catch (err) {
-//     console.log(err);
-//   }
-
-// }
-
-  
 
