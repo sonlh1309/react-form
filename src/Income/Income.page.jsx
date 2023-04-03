@@ -107,7 +107,7 @@ export default function Income() {
     ];
   return (
     <>
-      <div className="scrollable" style={{ paddingTop:'50px' }}> 
+      <div className="scrollable" style={{ paddingTop:'5px' }}> 
         <div className="scrollable-header" style={{ height:'50px' }}>
           <div className=" navbars" style={{ paddingLeft:'10px', paddingRight: '10px' }}>
             <button  className="button btn-primarys">
@@ -124,7 +124,7 @@ export default function Income() {
       </div>
       <div className="row scrollable-content">
         <Col md={3}>
-          <Form style={{ border: '1px solid #DDDDDD', marginTop:'10px', padding:'8px' }}>
+          <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px' }}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Năm</Form.Label>
               <Form.Select id="Select" >
@@ -152,10 +152,10 @@ export default function Income() {
           
         </Col>
         <Col md={9} >
-          <Form style={{ border: '1px solid #DDDDDD', marginTop:'10px', padding:'8px'  }}>
+          <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px'  }}>
             <div className="content__table" style={{ marginTop: ' 20px'  }}> 
               <DataTable className="table__data"
-                noDataComponent=""
+                noDataComponent="Năm"
                 columns={columns}
                 data={data}
                 conditionalRowStyles={conditionalRowStyles}

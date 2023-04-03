@@ -14,7 +14,7 @@ import {Col, Form} from 'react-bootstrap';
 import { Button, Input, Paper, Typography } from "@mui/material";
 import { getReportAction } from "../store/actions/report.action";
 import Search2 from "../Layout/search";
-
+import './report.css'
 
 export default function Report(props) {
 
@@ -122,7 +122,7 @@ export default function Report(props) {
 
   return (
     <>
-      <Container>
+
         <Row>
           <Col sm={3} >
           <Search2 handleSearch={handleSearch} /> 
@@ -154,7 +154,7 @@ export default function Report(props) {
                 data={data}
                 conditionalRowStyles={conditionalRowStyles}
                 highlightOnHover
-                selectableRows={true}
+                selectableRows={false}
                 pagination
                 paginationPerPage={10}
                 paginationRowsPerPageOptions={[5, 10, 20, 50, 100]}
@@ -167,7 +167,7 @@ export default function Report(props) {
             </div>
           </Col>
         </Row>
-      </Container>  
+
     </>
   );
 }
