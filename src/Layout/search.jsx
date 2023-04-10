@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import Input from '@mui/material/Input';
 export default function Search2(props) {
   const { handleSearch } = props;

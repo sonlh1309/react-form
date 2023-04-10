@@ -8,10 +8,9 @@ import PrintIcon from '@mui/icons-material/Print';
 
 import PublishIcon from '@mui/icons-material/Publish';
 import { searchReportAction } from "../store/actions/report.action";
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import {Col, Form} from 'react-bootstrap';
-import { Button, Input, Paper, Typography } from "@mui/material";
+import {Col} from 'react-bootstrap';
+
 import { getReportAction } from "../store/actions/report.action";
 import Search2 from "../Layout/search";
 import './report.css'

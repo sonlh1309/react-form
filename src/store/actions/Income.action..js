@@ -10,13 +10,15 @@ export const getIncomeAction = (token, nam) => {
         `api/60939744ac969b4078488026/dtbanletheothang?nam=${nam}&access_token=${token}`,
         "GET",
       );
-      // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop
-      const lastData = res.data.pop();
-      // console.log(lastData)
-      // đưa dữ liệu vừa lấy lên đầu bằng hàm unshift
-      res.data.unshift(lastData);
-      // console.log(lastData)
-      await dispatch(getIncome(res.data));
+      if (res && res.data) {
+        // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop
+        const lastData = res.data.pop();
+        // console.log(lastData)
+        // đưa dữ liệu vừa lấy lên đầu bằng hàm unshift
+        res.data.unshift(lastData);
+        // console.log(lastData)
+        await dispatch(getIncome(res.data));
+      }
     } catch (err) {
       console.log(err);
     }
