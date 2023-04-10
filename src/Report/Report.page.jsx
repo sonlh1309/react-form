@@ -19,7 +19,6 @@ export default function Report(props) {
 
   const dispatch = useDispatch();
 
-  
   const { listReport } = useSelector((state) => state.report);
 
   const [data, setData] = useState(listReport);

@@ -44,7 +44,7 @@
 .col3 Input{
   font-size: 12px;
 
-  width: 240px;
+  width: 280px;
 }
 .paper{
   background-color: #fff;
@@ -58,13 +58,13 @@
 .col3__input{
 
   font-size: 15px !important;
-  width: 240px;
+  width: 280px;
   margin-left: 10px;
 }
 .col3__inputt{
 
   font-size: 15px !important;
-  width: 240px;
+  width: 280px;
   margin-left: 10px;
 }
 .typographys {
@@ -110,29 +110,4 @@
   font-size: 12px;
   text-align: center;
   
-}
-
-.App .navvs{
-  background: #008481;
-  border-radius: 0px;
-  margin-bottom: -1px;
-  min-height: 30px!important;
-  padding-left: 8px;
-  padding-right: 8px;
-  color: white;
-  text-decoration: none;
-}
-.navvs_left{
-
-  padding: 15px;
-  font-size: 18px;
-  line-height: 20px;
-  height: 50px;
-}
-.my-custom-drawer {
-  width: 350px;
-}
-.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
-  width: 280px;
-
 }

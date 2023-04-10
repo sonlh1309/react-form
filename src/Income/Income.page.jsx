@@ -5,14 +5,14 @@ import { formatCurrency,  } from "../utils/myUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { getIncomeAction } from "../store/actions/Income.action.";
 
-
+import { aggregators } from 'react-pivottable/Utilities';
 import {Col, Form} from 'react-bootstrap';
 
 import './Income.css'
-
-import PivotTableUI from "react-pivottable/PivotTableUI";
-import PivotTable from "react-pivottable";
+import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
+import createPlotlyComponent from 'react-plotly.js/factory';
+import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {
   MDBTabs,
   MDBTabsContent,
@@ -20,6 +20,12 @@ import {
   MDBTabsLink,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
+import * as XLSX from 'xlsx';
+import Pivot from "./Pivot";
+import Pivot2 from "./pivot2";
+
+
+
 
 export default function Income() {
   const dispatch = useDispatch()
@@ -28,10 +34,7 @@ export default function Income() {
   const [year, setYear] = useState('');
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [basicActive, setBasicActive] = useState("tab1");
-  const [pivotData, setPivotData] = useState([]);
-  const [rows, setRows] = useState([]);
-  const [cols, setCols] = useState([]);
-  const [vals, setVals] = useState([]);
+
 
     const fetchData = useCallback(() => {
       dispatch(getIncomeAction("dfc7bc8e19751c1d7ae3c668cda7f5c6", year));
@@ -58,27 +61,15 @@ export default function Income() {
     }
     setBasicActive(value);
   };
-
-
-  const handlePivotChange = (data) => {
-    setPivotData(data);
-    setRows(data.rows);
-    setCols(data.cols);
-    setVals(data.vals);
-    
-  };
-  const pivotDatas = listIncome.map((row) => ({
-    Tháng: row.thang,
-    "Số lượng bán": row.t_sl_xuat,
-    "Tiền hàng": formatCurrency(row.t_tien_hang),
-    "CK sản phẩm": formatCurrency(row.t_tien_ck),
-    "Doanh thu": formatCurrency(row.t_tien),
-    "CK hóa đơn": formatCurrency(row.tien_ck_hd),
-    Evoucher: formatCurrency(row.tien_evoucher),
-    "Tổng tiền": formatCurrency(row.t_doanh_thu),
-    "SL trả lại": row.t_sl_nhap,
-  }));
-    const pivotTableRenderers = PivotTableUI.renderers;
+  
+  // const exportToExcel = () => {
+  //   const sheetName = 'Pivot Table';
+  //   const wb = XLSX.utils.book_new();
+  //   const ws = XLSX.utils.json_to_sheet(pivotDatas);
+  
+  //   XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  //   XLSX.writeFile(wb, `${sheetName}.xlsx`);
+  // };
     const columns = [
       {
         name: "Tháng",
@@ -193,7 +184,7 @@ export default function Income() {
                 <option>--</option>
               </Form.Select>
             </Form.Group>
-          </Form>  
+          </Form>
         </Col>
         
         <Col md={9} >
@@ -204,7 +195,7 @@ export default function Income() {
                   onClick={() => changeTab("tab1")}
                   active={basicActive === "tab1"}
                 >
-                  Dữ liệu 
+                  Dữ liệu
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
@@ -246,16 +237,8 @@ export default function Income() {
               <MDBTabsPane show={basicActive === "tab2"}>
                 <Form style={{ border: '1px solid #DDDDDD', marginTop: '10px', padding: '8px' }}>
                   <div div className="content__table" style={{ marginTop: '20px', overflow: 'auto' }}>  
-                    <PivotTableUI
-                      data={pivotDatas}
-                      onChange={handlePivotChange}
-                      renderers={pivotTableRenderers}
-                      rows={rows}
-                      cols={cols}
-                      vals={vals}
-                      fixedHeaderScrollHeight= "100px"
-                      aggregatorName="Count"
-                    />
+                  <Pivot2/>
+                    {/* <button onClick={exportToExcel}>Xuất Excel</button> */}
                   </div>
                 </Form>
               </MDBTabsPane>

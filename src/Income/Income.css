@@ -80,3 +80,14 @@
   /* padding-left: 10px;
   padding-right: 10px; */
 }
+.PivotTableUI {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+.PivotTableUI > * {
+  flex-shrink: 0;
+}
+.PivotTableUI > .pvtRendererArea {
+  overflow-y: auto;
+}
