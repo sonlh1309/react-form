@@ -17,6 +17,7 @@ import { deleteProductAction, getProductAction } from "../store/actions/Product.
 import Search2 from "../Layout/search";
 import './list.css'
 import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 export default function Product(props) {
 
@@ -99,12 +100,12 @@ export default function Product(props) {
       sortable: false,
       center: true,
       cell: (row) => (
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown >
+          <Dropdown.Toggle  className="btn_header_table" id="dropdown-basic">
             
           </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handleEdit(row)}>Sửa</Dropdown.Item>
+          <Dropdown.Menu >
+            <Dropdown.Item  onClick={() => handleEdit(row)}>Sửa</Dropdown.Item>
             <Dropdown.Item onClick={() => handleDelete(row)}>Xóa</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -144,14 +145,15 @@ export default function Product(props) {
               Danh sách nhóm hàng hóa/dịch vụ
             </h2>
             <div className="content__right">
-              <Button className="button btn-success" onClick={() => navigate("new")}>
-                <span className="button__title">Thêm mới</span>
+              <Button className="button btn_header_table" onClick={() => navigate("new")}>
+                {/* <span className="button__title">Thêm mới</span> */}
+                <PlusOutlined />
               </Button>
-              <Button className="button btn-success">
+              <Button className="button btn_header_table">
                 <PublishIcon fontSize="small"/>
                 <span className="button__title">Xuất file </span>
               </Button>
-              <Button className="button btn-success">
+              <Button className="button btn_header_table">
               <PrintIcon fontSize="small" ml={1} />
                 <span className="button__title"> In</span>
               </Button>

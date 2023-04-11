@@ -17,8 +17,10 @@ import Divider from '@mui/material/Divider'
 import './App.css'
 
 import {
+  HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  StockOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
@@ -27,6 +29,7 @@ import { Layout, Menu, theme } from 'antd';
 
 import Product from './List/Product.page';
 import ProductAdd from './List/ProductAdd';
+import Day from './Day/Day.page';
 
 
 const { Header, Sider, Content } = Layout;
@@ -46,7 +49,7 @@ const App = () => {
               <div className="logo"  >
                 {/* <a className="logo" href='/'  ></a> */}
               </div>
-              <Menu  style={{ height:"100%" }}
+              <Menu className=''  style={{ height:"100%" }}
                 theme="light"
                 width="100%"
                 mode="inline"
@@ -54,16 +57,41 @@ const App = () => {
                 items={[
                   {
                     key: '1',
-                    icon: <UserOutlined />,
-                    label: <Link to="/Income">Income</Link>,
+                    icon: <HomeOutlined />,
+                    label: <Link to="/">Dashboard</Link>,
                   },
                   {
                     key: '2',
-                    icon: <VideoCameraOutlined />,
-                    label: <Link to="/Report">Report</Link>,
+                    icon: <UserOutlined />,
+                    label: 'Bán hàng',
+                    children: [
+                      {
+                        key: '2.1',
+                        label: <Link to="/Day">Doanh thu bán lẻ theo ngày</Link>,
+                      },
+                      {
+                        key: '2.2',
+                        label: <Link to="/Income">Doanh thu bán lẻ theo tháng</Link>,
+                      },
+                    ]
                   },
                   {
                     key: '3',
+                    icon: <StockOutlined />,
+                    label: 'Báo cáo' ,
+                    children: [
+                      {
+                        key: '3.1',
+                        label: <Link to="/">Báo cáo cuối ngày bán hàng</Link>,
+                      },
+                      {
+                        key: '3.2',
+                        label: <Link to="/Report">Báo cáo bán hàng theo thời gian </Link>,
+                      },
+                    ]
+                  },
+                  {
+                    key: '4',
                     icon: <UploadOutlined />,
                     label: <Link to="/Product">Product</Link>,
                   },
@@ -88,6 +116,7 @@ const App = () => {
                 <Routes>
                   <Route path="/Report" element={<Report />} /> 
                   <Route path="/Income" element={<Income />} /> 
+                  <Route path="/Day" element={<Day />} /> 
                   <Route path="/Product" element={<Product />} /> 
                   <Route path="/Product/new" element={<ProductAdd />} /> 
                   <Route path="/Product/edit" element={<ProductAdd/>} /> 

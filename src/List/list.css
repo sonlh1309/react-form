@@ -111,3 +111,25 @@
   text-align: center;
   
 }
+.btn-black{
+  color: #fff !important;
+  background-color: #0B2B20;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.btn_header_table {
+	background-color: #0B2B20;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: rgb(0 0 0 / 5%) 0px 20px 27px 0px;
+}
+.btn_header_table:hover {
+	opacity: 0.8;
+}

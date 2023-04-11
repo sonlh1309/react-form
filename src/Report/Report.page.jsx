@@ -124,14 +124,14 @@ export default function Report(props) {
                 Báo cáo bán hàng theo thời gian 
               </h2>
               <div className="content__right">
-                <Button className="button btn-success">
+                <Button className="button btn_header_table">
                   <span className="button__title">Xem trước</span>
                 </Button>
-                <Button className="button btn-success">
+                <Button className="button btn_header_table">
                   <PublishIcon fontSize="small"/>
                   <span className="button__title">Xuất file </span>
                 </Button>
-                <Button className="button btn-success">
+                <Button className="button btn_header_table">
                 <PrintIcon fontSize="small" ml={1} />
                   <span className="button__title"> In</span>
                 </Button>

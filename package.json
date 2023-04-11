@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
@@ -29,6 +30,7 @@
     "react-cookie": "^4.1.1",
     "react-data-export": "^0.6.0",
     "react-data-table-component": "^7.5.3",
+    "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",

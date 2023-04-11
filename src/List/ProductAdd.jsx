@@ -83,10 +83,10 @@ export default function ProductAdd(props) {
             Danh sách nhóm hàng hóa/dịch vụ
           </h2>
           <div className="content__right">
-            <Button className="button btn-success" onClick={handleSubmit((data) => addProduct(data))}>
+            <Button className="button btn_header_table" onClick={handleSubmit((data) => addProduct(data))}>
               <span className="button__title">Lưu</span>
             </Button>
-            <Button className="button btn-success" onClick={() => nav("/Product")}>
+            <Button className="button btn_header_table" onClick={() => nav("/Product")}>
               <span className="button__title">Hủy </span>
             </Button>
 
