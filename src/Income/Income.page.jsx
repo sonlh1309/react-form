@@ -23,6 +23,7 @@ import {
 import * as XLSX from 'xlsx';
 import Pivot from "./Pivot";
 import Pivot2 from "./pivot2";
+import { Button } from "antd";
 
 
 
@@ -144,21 +145,20 @@ export default function Income() {
     
   return (
     <>
-      <div className="scrollable" style={{ paddingTop:'5px' }}> 
-        <div className="scrollable-header" style={{ height:'50px' }}>
+
+
           <div className=" navbars" style={{ paddingLeft:'10px', paddingRight: '10px' }}>
-            <button  className="button btn-primarys">
+            <Button  className="button btn-primarys">
               <span className="button__title" onClick={handleButtonClick}>Xem</span>
-            </button>
-            <button className="button btn-primarys">
+            </Button>
+            <Button className="button btn-primarys">
               <span className="button__title">In </span>
-            </button>
-            <button className="button btn-white" > 
+            </Button>
+            <Button className="button btn-white" > 
               <span className="button__title">Lọc</span>
-            </button>
+            </Button>
           </div>
-        </div>
-      </div>
+
       <div className="row scrollable-content">
         <Col md={3}>
           <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px' }}>

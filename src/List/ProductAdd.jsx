@@ -7,6 +7,7 @@ import { addProductAction, editProductAction } from "../store/actions/Product.ac
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Container } from "react-bootstrap";
+import { Button } from "antd";
 
 
 export default function ProductAdd(props) {
@@ -82,12 +83,12 @@ export default function ProductAdd(props) {
             Danh sách nhóm hàng hóa/dịch vụ
           </h2>
           <div className="content__right">
-            <button className="button btn-success" onClick={handleSubmit((data) => addProduct(data))}>
+            <Button className="button btn-success" onClick={handleSubmit((data) => addProduct(data))}>
               <span className="button__title">Lưu</span>
-            </button>
-            <button className="button btn-success" onClick={() => nav("/Product")}>
+            </Button>
+            <Button className="button btn-success" onClick={() => nav("/Product")}>
               <span className="button__title">Hủy </span>
-            </button>
+            </Button>
 
           </div>
         </div>

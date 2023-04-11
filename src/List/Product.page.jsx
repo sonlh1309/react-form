@@ -16,6 +16,7 @@ import {Col, Container} from 'react-bootstrap';
 import { deleteProductAction, getProductAction } from "../store/actions/Product.action";
 import Search2 from "../Layout/search";
 import './list.css'
+import { Button } from "antd";
 
 export default function Product(props) {
 
@@ -143,17 +144,17 @@ export default function Product(props) {
               Danh sách nhóm hàng hóa/dịch vụ
             </h2>
             <div className="content__right">
-              <button className="button btn-success" onClick={() => navigate("new")}>
+              <Button className="button btn-success" onClick={() => navigate("new")}>
                 <span className="button__title">Thêm mới</span>
-              </button>
-              <button className="button btn-success">
+              </Button>
+              <Button className="button btn-success">
                 <PublishIcon fontSize="small"/>
                 <span className="button__title">Xuất file </span>
-              </button>
-              <button className="button btn-success">
+              </Button>
+              <Button className="button btn-success">
               <PrintIcon fontSize="small" ml={1} />
                 <span className="button__title"> In</span>
-              </button>
+              </Button>
             </div>
           </div>
           <div className="content__table">
@@ -168,7 +169,7 @@ export default function Product(props) {
               highlightOnHover
               selectableRows={true}
               pagination
-              paginationPerPage={20}
+              paginationPerPage={10}
               paginationRowsPerPageOptions={[5, 10, 20, 50, 100]}
               paginationComponentOptions={{
                 rowsPerPageText: "Số hàng trên trang:",

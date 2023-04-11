@@ -14,6 +14,7 @@ import {Col} from 'react-bootstrap';
 import { getReportAction } from "../store/actions/report.action";
 import Search2 from "../Layout/search";
 import './report.css'
+import { Button } from "antd";
 
 export default function Report(props) {
 
@@ -123,17 +124,17 @@ export default function Report(props) {
                 Báo cáo bán hàng theo thời gian 
               </h2>
               <div className="content__right">
-                <button className="button btn-success">
+                <Button className="button btn-success">
                   <span className="button__title">Xem trước</span>
-                </button>
-                <button className="button btn-success">
+                </Button>
+                <Button className="button btn-success">
                   <PublishIcon fontSize="small"/>
                   <span className="button__title">Xuất file </span>
-                </button>
-                <button className="button btn-success">
+                </Button>
+                <Button className="button btn-success">
                 <PrintIcon fontSize="small" ml={1} />
                   <span className="button__title"> In</span>
-                </button>
+                </Button>
               </div>
             </div>
             <div className="content__table">

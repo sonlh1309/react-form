@@ -1,5 +1,9 @@
 
-
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
 .content__head {
   display: flex;
   align-items: center;
@@ -135,4 +139,101 @@
 .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
   width: 280px;
 
+}
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+#header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05) !important;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+}
+
+#header .left .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: center;
+  color: inherit;
+  height: 50px;
+  /* border-right: 2px solid rgba(0, 0, 0, 0.1) !important; */
+  /* box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05) !important; */
+}
+#header .left .logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+#header .left .logo span {
+  color: darkorchid;
+  font-size: 24px;
+  font-weight: 700;
+  margin-left: 15px;
+}
+#header .tool {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  height: 100%;
+  padding-right: 30px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+#header .tool .item {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.45);
+  transition: all 0.3s linear;
+}
+#header .tool .item:hover {
+  color: #000;
+}
+#header .tool .tool-right {
+  display: flex;
+  align-items: center;
+}
+#header .tool .tool-right .profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+#wrapper {
+  position: relative;
+}
+#wrapper .right-content {
+  position: absolute;
+  height: calc(100vh - 50px);
+  right: 20px;
+  top: 50px;
+  z-index: 2000;
+}
+#left-menu {
+  width: 100%;
+  height: calc(100% - 30px);
+  overflow: auto;
+  overflow-y: scroll;
+  position: fixed;
+  left: 0;
+  top: 50px;
+  background-color: #fff;
+  z-index: 2000;
 }

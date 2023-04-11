@@ -16,70 +16,88 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Divider from '@mui/material/Divider'
 import './App.css'
 
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Layout, Menu, theme } from 'antd';
+
 import Product from './List/Product.page';
 import ProductAdd from './List/ProductAdd';
 
-function App() {
-  const [open, setOpen] = React.useState(false);
 
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+const { Header, Sider, Content } = Layout;
+
+const App = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   return (
-    <div className='App'>
-      <div className='navvs'>
-        <div>
-          <IconButton
-            style={{ margin: '5px' }}
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleToggle}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer
-            anchor="left"
-            open={open}
-            onClose={handleToggle}
-            className="my-custom-drawer"
-          >
-            <List>
-              <ListItem >
-              <Nav.Link style={{ justifyContent: 'center' }} href="/home">Home</Nav.Link>
-              </ListItem>
-              <ListItem >
-              <Nav.Link href="/Report">Report</Nav.Link>
-              </ListItem>
-              <ListItem >
-              <Nav.Link href="/Income">Income</Nav.Link>
-              </ListItem>
-              <ListItem >
-              <Nav.Link href="/Product">Product</Nav.Link>
-              </ListItem>
-            </List>
-          </Drawer>
-        </div>
-        {/* <div className='navvs_left'>
-          <a>
-            <span>Chi tiết bán hàng theo sản phẩm (Pivot)</span>
-          </a>
-        </div> */}
-        
+    <>
+      <div id='wrapper' >
+        <Router>
+          <Layout style={{ width: '100%', backgroundColor: 'white', height: '900px' }}>
+            <Sider trigger={null} collapsible collapsed={collapsed} style={{ backgroundColor: ' rgba(0, 0, 0, 0.1)' }}> 
+              <div className="logo"  >
+                {/* <a className="logo" href='/'  ></a> */}
+              </div>
+              <Menu  style={{ height:"100%" }}
+                theme="light"
+                width="100%"
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                items={[
+                  {
+                    key: '1',
+                    icon: <UserOutlined />,
+                    label: <Link to="/Income">Income</Link>,
+                  },
+                  {
+                    key: '2',
+                    icon: <VideoCameraOutlined />,
+                    label: <Link to="/Report">Report</Link>,
+                  },
+                  {
+                    key: '3',
+                    icon: <UploadOutlined />,
+                    label: <Link to="/Product">Product</Link>,
+                  },
+                ]}
+              />
+            </Sider>
+            <Layout className="site-layout" >
+              <Header style={{ padding: 0, background: colorBgContainer }}>
+                {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                  className: 'trigger',
+                  onClick: () => setCollapsed(!collapsed),
+                })}
+              </Header>
+              <Content 
+                style={{
+                  margin: '24px 16px',
+                  height: '100%',
+          
+                  background: colorBgContainer,
+                }}
+              >
+                <Routes>
+                  <Route path="/Report" element={<Report />} /> 
+                  <Route path="/Income" element={<Income />} /> 
+                  <Route path="/Product" element={<Product />} /> 
+                  <Route path="/Product/new" element={<ProductAdd />} /> 
+                  <Route path="/Product/edit" element={<ProductAdd/>} /> 
+                </Routes>
+              </Content>
+            </Layout>
+          </Layout>
+        </Router>
       </div>
-      <Router>
-        <div>
-          <Routes>
-            <Route path="/Report" element={<Report />} /> 
-            <Route path="/Income" element={<Income />} /> 
-            <Route path="/Product" element={<Product />} /> 
-            <Route path="Product/new" element={<ProductAdd />} /> 
-            <Route path="Product/edit" element={<ProductAdd/>} /> 
-          </Routes>
-        </div>
-      </Router>
-    </div>
+    </> 
   );
 }
 

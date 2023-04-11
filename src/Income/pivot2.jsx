@@ -5,9 +5,12 @@ import 'react-pivottable/pivottable.css';
 import TableRenderers from 'react-pivottable/TableRenderers';
 import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
+import { Button } from 'antd';
 import { useSelector } from 'react-redux';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import Papa from 'papaparse';
+
 
 const Plot = createPlotlyComponent(window.Plotly);
 
@@ -38,22 +41,34 @@ const Pivot2 = () => {
   }, [listIncome]);
 
   const onChange = (s) => {
-    console.log(s);
     setState(s);
+    console.log(s)
+  };
+  const handlePrint = () => {
+    console.log(state.rows);
   };
 
-
+  const handleDownloadExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(state.rows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    saveAs(new Blob([excelBuffer], { type: 'application/octet-stream' }), 'report.xlsx');
+  };
   return (
     <>
+        
       {data.length > 0 && (
-        <>
-         <PivotTableUI
+        
+        <>  
+          <Button onClick={handleDownloadExcel}>Excel</Button>
+          <PivotTableUI
             data={data}
             onChange={onChange}
             renderers={{ ...TableRenderers, ...PlotlyRenderers }}
             {...state}
           />
-
+        
         </>
       )}
     </>
