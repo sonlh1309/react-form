@@ -25,7 +25,7 @@ export default function Report(props) {
   const [data, setData] = useState(listReport);
 
   const fetchData = useCallback(() => {
-    dispatch(getReportAction("flex.public.token"));
+    dispatch(getReportAction(""));
   }, [dispatch]);
 
   useEffect(() => {

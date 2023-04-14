@@ -4,6 +4,14 @@ import ReportReducer from "./report.reducer";
 import IncomeReducer from "./Income.reducer";
 import ProductReducer from "./Product.reducer";
 import dayReducer from "./day.reducer";
+import KhoReducer from "./kho.reducer";
+import donviReducer from "./donvi.reducer";
+
+
+
+
+
+
 
 
 export default configureStore({
@@ -11,7 +19,9 @@ export default configureStore({
     report: ReportReducer,
     income: IncomeReducer,
     product: ProductReducer,
-    day : dayReducer,
+    day: dayReducer,
+    kho: KhoReducer,
+    donvi: donviReducer
   },
   
 })

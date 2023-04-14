@@ -2,12 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import DataTable from "react-data-table-component";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { formatCurrency, formatDateDisplay } from "../utils/myUtils";
 import PrintIcon from '@mui/icons-material/Print';
 import "react-datepicker/dist/react-datepicker.css";
 import {Col,Form} from 'react-bootstrap';
 import { getDayAction } from "../store/actions/day.action";
+// import { getKhoAction } from "../store/actions/report.action";
+import { getKhoAction } from "../store/actions/kho.action";
+import { getDonviAction } from "../store/actions/donvi.action";
 import Search2 from "../Layout/search";
 import './day.css'
 import { Button } from "antd";
@@ -22,9 +25,14 @@ import PivotDay from "./pivotday";
 
 export default function Day(props) {
 
+
   const dispatch = useDispatch();
 
   const { listDay } = useSelector((state) => state.day);
+  const { listKho } = useSelector((state) => state.kho); 
+
+  const {listDonvi} = useSelector((state) => state.donvi)
+
   const [data, setData] = useState(listDay);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
@@ -48,7 +56,32 @@ export default function Day(props) {
   const handleButtonClick = () => {
     setIsButtonClicked(true);
     fetchData();
-};
+  };
+  // kho
+  const fetchData1 = useCallback(() => {
+    dispatch(getKhoAction(""));
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchData1();
+  }, [fetchData1]);
+
+  useEffect(() => {
+    setData(listKho);
+  }, [listKho]);
+
+  // don vị
+  const fetchData2 = useCallback(() => {
+    dispatch(getDonviAction(""));
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchData2();
+  }, [fetchData2]);
+
+  useEffect(() => {
+    setData(listDonvi);
+  }, [listDonvi]);
 
   const changeTab = (value) => {
     if (value === basicActive) {
@@ -110,20 +143,20 @@ export default function Day(props) {
     
 
   const conditionalRowStyles = [
-    {
-      when: (row) => listDay.indexOf(row) % 2 === 0,
-      style: {
-        backgroundColor: "#F9F9F9",
-        color: "#000",
-      },
-    },
-    {
-      when: (row) => listDay.indexOf(row) % 2 !== 0,
-      style: {
-        backgroundColor: "#fff",
-        color: "#000",
-      },
-    },
+    // {
+    //   when: (row) => listDay.indexOf(row) % 2 === 0,
+    //   style: {
+    //     backgroundColor: "#F9F9F9",
+    //     color: "#000",
+    //   },
+    // },
+    // {
+    //   when: (row) => listDay.indexOf(row) % 2 !== 0,
+    //   style: {
+    //     backgroundColor: "#fff",
+    //     color: "#000",
+    //   },
+    // },
   ];
 
   return (
@@ -168,13 +201,25 @@ export default function Day(props) {
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Kho</Form.Label>
               <Form.Select id="" >
-                <option>--</option>
+              {listKho &&
+                  listKho.map((item, index) => (
+                    <option key={index} value={item._id}>
+                      {item.ma_kho}
+                    </option>
+                  ))}
+                <option value="add" className="btn-add">---</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đơn vị</Form.Label>
               <Form.Select id="" >
-                <option>--</option>
+              {listDonvi &&
+                  listDonvi.map((item, index) => (
+                    <option key={index} value={item._id}>
+                      {item.ten_dvcs}
+                    </option>
+                  ))}
+                 <option value="add" className="btn-add">---</option>
               </Form.Select>
             </Form.Group>
           </Form>

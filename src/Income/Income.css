@@ -88,3 +88,15 @@
 .PivotTableUI > .pvtRendererArea {
   overflow-y: auto;
 }
+
+
+
+
+.btn__export {
+
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+
+}

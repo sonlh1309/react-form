@@ -5,9 +5,9 @@ import { formatCurrency,  } from "../utils/myUtils";
 import { useDispatch, useSelector } from "react-redux";
 import { getIncomeAction } from "../store/actions/Income.action.";
 
-import { aggregators } from 'react-pivottable/Utilities';
-import {Col, Form} from 'react-bootstrap';
 
+import {Col, Form} from 'react-bootstrap';
+import PrintIcon from '@mui/icons-material/Print';
 import './Income.css'
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
@@ -21,16 +21,18 @@ import {
   MDBTabsPane,
 } from "mdb-react-ui-kit";
 import * as XLSX from 'xlsx';
-import Pivot from "./Pivot";
 import Pivot2 from "./pivot2";
 import { Button } from "antd";
-
-
+import { saveAs } from 'file-saver';
+import Kho from "../Layout/makho";
+import Donvi from "../Layout/donvi";
 
 
 export default function Income() {
   const dispatch = useDispatch()
   const { listIncome } = useSelector((state) => state.income);
+  const { listReport } = useSelector((state) => state.report);
+
   const [data, setData] = useState(listIncome);
   const [year, setYear] = useState('');
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -62,15 +64,7 @@ export default function Income() {
     }
     setBasicActive(value);
   };
-  
-  // const exportToExcel = () => {
-  //   const sheetName = 'Pivot Table';
-  //   const wb = XLSX.utils.book_new();
-  //   const ws = XLSX.utils.json_to_sheet(pivotDatas);
-  
-  //   XLSX.utils.book_append_sheet(wb, ws, sheetName);
-  //   XLSX.writeFile(wb, `${sheetName}.xlsx`);
-  // };
+
     const columns = [
       {
         name: "Tháng",
@@ -142,15 +136,23 @@ export default function Income() {
         },
       },
     ];
-    
+    const exportToExcel = () => {
+
+      const worksheet = XLSX.utils.json_to_sheet(data);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const data = new Blob([excelBuffer], {type: 'application/octet-stream'});
+      saveAs(data, 'data.xlsx');
+    }
   return (
     <>
       <div className=" navbars" style={{ paddingLeft:'10px', paddingRight: '10px' }}>
-        <Button  className="button btn_header_table ">
-          <span className="button__title " onClick={handleButtonClick}>Xem</span>
+        <Button  className="button btn_header_table " onClick={handleButtonClick}>
+          <span className="button__title " >Xem</span>
         </Button>
-        <Button className="button btn_header_table">
-          <span className="button__title">In </span>
+        <Button className="button btn_header_table" onclick={exportToExcel}>
+          <PrintIcon/>
         </Button>
         <Button className="button btn-white" > 
           <span className="button__title">Lọc</span>
@@ -172,13 +174,15 @@ export default function Income() {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Kho</Form.Label>
-              <Form.Select id="" >
+              <Form.Select id="kho" >
+                <Kho/>  
                 <option>--</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đơn vị</Form.Label>
-              <Form.Select id="" >
+              <Form.Select id="donvi" >
+                 <Donvi />
                 <option>--</option>
               </Form.Select>
             </Form.Group>
