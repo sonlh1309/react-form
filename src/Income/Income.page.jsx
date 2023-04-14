@@ -35,13 +35,16 @@ export default function Income() {
 
   const [data, setData] = useState(listIncome);
   const [year, setYear] = useState('');
+  const [dvcs, setDvcs] = useState('');
+  const [kho, setKho] = useState('');
+
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [basicActive, setBasicActive] = useState("tab1");
 
 
     const fetchData = useCallback(() => {
-      dispatch(getIncomeAction("5233108aee2aa6028dc0e1627330e87c", year));
-    }, [dispatch,year]);
+      dispatch(getIncomeAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
+    }, [dispatch,year,dvcs,kho]);
 
     useEffect(() => {
       fetchData();
@@ -56,6 +59,8 @@ export default function Income() {
     const handleButtonClick = () => {
       setIsButtonClicked(true);
       setYear(document.getElementById("Select").value);
+      setDvcs(document.getElementById("dvcs").value);
+      setKho(document.getElementById("kho").value);
   };
   
   const changeTab = (value) => {
@@ -176,14 +181,14 @@ export default function Income() {
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Kho</Form.Label>
               <Form.Select id="kho" >
                 <Kho/>  
-                <option>--</option>
+                <option></option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đơn vị</Form.Label>
-              <Form.Select id="donvi" >
+              <Form.Select id="dvcs" >
                  <Donvi />
-                <option>--</option>
+                <option></option>
               </Form.Select>
             </Form.Group>
           </Form>

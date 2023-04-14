@@ -36,8 +36,8 @@ export default function Kho(props) {
     <>
       {listKho &&
         listKho.map((item, index) => (
-          <option key={index} value={item._id}>
-            {item.ma_kho}
+          <option key={index} value={item.ma_kho}>
+            {item.ten_kho}
           </option>
       ))}   
     </>
