@@ -30,6 +30,8 @@ import { Layout, Menu, theme } from 'antd';
 import Product from './List/Product.page';
 import ProductAdd from './List/ProductAdd';
 import Day from './Day/Day.page';
+import Quy from './Quy/Quy.page';
+import Year from './Year/Year.page';
 
 
 const { Header, Sider, Content } = Layout;
@@ -67,11 +69,19 @@ const App = () => {
                     children: [
                       {
                         key: '2.1',
-                        label: <Link to="/Day">Doanh thu bán lẻ theo ngày</Link>,
+                        label: <Link to="/dtbanletheongay">Doanh thu bán lẻ theo ngày</Link>,
                       },
                       {
                         key: '2.2',
-                        label: <Link to="/Income">Doanh thu bán lẻ theo tháng</Link>,
+                        label: <Link to="/dtbanletheonam">Doanh thu bán lẻ theo tháng</Link>,
+                      },
+                      {
+                        key: '2.3',
+                        label: <Link to="/dtbanletheoquy">Doanh thu bán lẻ theo quý</Link>,
+                      },
+                      {
+                        key: '2.4',
+                        label: <Link to="/dtbanletheonam">Doanh thu bán lẻ theo năm</Link>,
                       },
                     ]
                   },
@@ -115,8 +125,10 @@ const App = () => {
               >
                 <Routes>
                   <Route path="/Report" element={<Report />} /> 
-                  <Route path="/Income" element={<Income />} /> 
-                  <Route path="/Day" element={<Day />} /> 
+                  <Route path="/dtbanletheonam" element={<Income />} /> 
+                  <Route path="/dtbanletheongay" element={<Day />} /> 
+                  <Route path="/dtbanletheoquy" element={<Quy />} /> 
+                  <Route path="/dtbanletheonam" element={<Year/>} /> 
                   <Route path="/Product" element={<Product />} /> 
                   <Route path="/Product/new" element={<ProductAdd />} /> 
                   <Route path="/Product/edit" element={<ProductAdd/>} /> 

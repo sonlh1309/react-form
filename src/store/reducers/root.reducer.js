@@ -6,9 +6,8 @@ import ProductReducer from "./Product.reducer";
 import dayReducer from "./day.reducer";
 import KhoReducer from "./kho.reducer";
 import donviReducer from "./donvi.reducer";
-
-
-
+import QuyReducer from "./Quy.reducer";
+import YearReducer from "./Year.reducer";
 
 
 
@@ -21,7 +20,9 @@ export default configureStore({
     product: ProductReducer,
     day: dayReducer,
     kho: KhoReducer,
-    donvi: donviReducer
+    donvi: donviReducer,
+    quy: QuyReducer,
+    year: YearReducer
   },
   
 })

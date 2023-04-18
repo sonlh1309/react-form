@@ -8,7 +8,7 @@ import { getIncomeAction } from "../store/actions/Income.action.";
 
 import {Col, Form} from 'react-bootstrap';
 import PrintIcon from '@mui/icons-material/Print';
-import './Income.css'
+import './Year.css'
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
 import createPlotlyComponent from 'react-plotly.js/factory';
@@ -21,18 +21,19 @@ import {
   MDBTabsPane,
 } from "mdb-react-ui-kit";
 import * as XLSX from 'xlsx';
-import Pivot2 from "./pivot2";
+// import pivotquy from "./pivotquy";
 import { Button } from "antd";
 import { saveAs } from 'file-saver';
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
+import { getQuyAction } from "../store/actions/Quy.action";
 
 
-export default function Income() {
+export default function Year() {
   const dispatch = useDispatch()
-  const { listIncome } = useSelector((state) => state.income);
+  const { listQuy } = useSelector((state) => state.quy);
+  const [data, setData] = useState(listQuy);
 
-  const [data, setData] = useState(listIncome);
   const [year, setYear] = useState('');
   const [dvcs, setDvcs] = useState('');
   const [kho, setKho] = useState('');
@@ -42,7 +43,7 @@ export default function Income() {
 
 
     const fetchData = useCallback(() => {
-      dispatch(getIncomeAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
+      dispatch(getQuyAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
     }, [dispatch,year,dvcs,kho]);
 
     useEffect(() => {
@@ -51,9 +52,9 @@ export default function Income() {
 
     useEffect(() => {
       if (isButtonClicked) {
-        setData(listIncome);
+        setData(listQuy);
       }
-    }, [isButtonClicked, listIncome]);
+    }, [isButtonClicked, listQuy]);
   
     const handleButtonClick = () => {
       setIsButtonClicked(true);
@@ -71,8 +72,8 @@ export default function Income() {
 
     const columns = [
       {
-        name: "Tháng",
-        selector: (row) => row.thang,
+        name: "Quý",
+        selector: (row) => row.quy,
         sortable: true,
       },
       {
@@ -133,7 +134,7 @@ export default function Income() {
   ];
     const conditionalRowStyles = [
       {
-        when: (row) => listIncome.indexOf(row) === 0,
+        when: (row) => listQuy.indexOf(row) === 0,
         style: {
           backgroundColor: "#F9F9F9",
           color: "#000",
@@ -245,7 +246,7 @@ export default function Income() {
               <MDBTabsPane show={basicActive === "tab2"}>
                 <Form style={{ border: '1px solid #DDDDDD', marginTop: '10px', padding: '8px' }}>
                   <div div className="content__table" style={{ marginTop: '20px', overflow: 'auto' }}>  
-                  <Pivot2/>
+                  {/* <pivotquy/> */}
                     {/* <button onClick={exportToExcel}>Xuất Excel</button> */}
                   </div>
                 </Form>
