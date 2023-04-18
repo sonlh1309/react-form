@@ -22,6 +22,8 @@ import {
   MDBTabsPane,
 } from "mdb-react-ui-kit";
 import PivotDay from "./pivotday";
+import Kho from "../Layout/makho";
+import Donvi from "../Layout/donvi";
 
 export default function Day(props) {
 
@@ -29,19 +31,20 @@ export default function Day(props) {
   const dispatch = useDispatch();
 
   const { listDay } = useSelector((state) => state.day);
-  const { listKho } = useSelector((state) => state.kho); 
 
-  const {listDonvi} = useSelector((state) => state.donvi)
 
   const [data, setData] = useState(listDay);
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState(new Date().toISOString().slice(0, 10));
+  const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
+  const [dvcs, setDvcs] = useState('');
+  const [kho, setKho] = useState('');
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [basicActive, setBasicActive] = useState("tab1");
 
+
   const fetchData = useCallback(() => {
-    dispatch(getDayAction("5233108aee2aa6028dc0e1627330e87c", fromDate ,toDate));
-  }, [dispatch, fromDate, toDate ]);
+    dispatch(getDayAction("5233108aee2aa6028dc0e1627330e87c", fromDate ,toDate, dvcs , kho ));
+  }, [dispatch, fromDate, toDate , dvcs , kho]);
 
   useEffect(() => {
     fetchData();
@@ -55,34 +58,13 @@ export default function Day(props) {
 
   const handleButtonClick = () => {
     setIsButtonClicked(true);
-    fetchData();
+    setFromDate(document.getElementById("fromdate").value);
+    setToDate(document.getElementById("todate").value);
+      setDvcs(document.getElementById("dvcs").value);
+      setKho(document.getElementById("kho").value);
+
   };
-  // kho
-  const fetchData1 = useCallback(() => {
-    dispatch(getKhoAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData1();
-  }, [fetchData1]);
-
-  useEffect(() => {
-    setData(listKho);
-  }, [listKho]);
-
-  // don vị
-  const fetchData2 = useCallback(() => {
-    dispatch(getDonviAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData2();
-  }, [fetchData2]);
-
-  useEffect(() => {
-    setData(listDonvi);
-  }, [listDonvi]);
-
+  
   const changeTab = (value) => {
     if (value === basicActive) {
       return;
@@ -180,8 +162,9 @@ export default function Day(props) {
             <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Từ ngày</Form.Label>
             <Form.Control
               type="date"
-              name="doj"
-              defaultValue=""
+                name="doj"
+                id="fromdate"
+              defaultValue="fromdate"
               placeholder="Date of Joining"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
@@ -191,8 +174,9 @@ export default function Day(props) {
             <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đến ngày</Form.Label>
             <Form.Control 
               type="date" 
-              name="doj" 
-              defaultValue=""
+                name="doj" 
+                id="todate"
+                defaultValue={toDate}
               placeholder="Date of Joining" 
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
@@ -200,26 +184,18 @@ export default function Day(props) {
           </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Kho</Form.Label>
-              <Form.Select id="" >
-              {listKho &&
-                  listKho.map((item, index) => (
-                    <option key={index} value={item._id}>
-                      {item.ma_kho}
-                    </option>
-                  ))}
-                <option value="add" className="btn-add">---</option>
+              <Form.Select id="kho" >
+                <option value="">-- Chọn Kho --</option>
+                <Kho />
+                <option value="" className="btn-add"></option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đơn vị</Form.Label>
-              <Form.Select id="" >
-              {listDonvi &&
-                  listDonvi.map((item, index) => (
-                    <option key={index} value={item._id}>
-                      {item.ten_dvcs}
-                    </option>
-                  ))}
-                 <option value="add" className="btn-add">---</option>
+              <Form.Select id="dvcs" >
+                <option value="">-- Chọn đơn vị --</option>
+                <Donvi/>
+                 <option value="" className="btn-add"></option>
               </Form.Select>
             </Form.Group>
           </Form>

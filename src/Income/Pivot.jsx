@@ -1,133 +1,69 @@
-import React, { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
-import tableToExcel from "@linways/table-to-excel";
-
-import axios from "axios";
-import { TbFileExport } from "react-icons/tb";
-import PivotTableUI from "react-pivottable/PivotTableUI";
+import React, { useState, useEffect, useLayoutEffect, useCallback } from "react";
+import { formatCurrency,  } from "../utils/myUtils";
+import PivotTableUI from 'react-pivottable/PivotTableUI';
+import 'react-pivottable/pivottable.css';
+import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
+import { aggregators } from 'react-pivottable/Utilities';
+import Plotly from "plotly.js/dist/plotly";
 import TableRenderers from "react-pivottable/TableRenderers";
-import createPlotlyRenderers from "react-pivottable/PlotlyRenderers";
-import createPlotlyComponent from "react-plotly.js/factory";
-import callApis from "../utils/callApis";
 
-const Plot = createPlotlyComponent(window.Plotly);
-const PlotlyRenderers = createPlotlyRenderers(Plot);
+import { useDispatch, useSelector } from "react-redux";
 
 
 
 export default function Pivot() {
-  const fetchData = async () => {
-    const res = await axios.get(
-      "https://638776d1d9b24b1be3f14cd4.mockapi.io/api/v1/product"
-    );
-    setData(res.data);
-    // Bỏ thuộc tính type trong res.data và thêm thuộc tính loại sản phẩm
-    const dataTemp = JSON.parse(JSON.stringify(res.data));
-    const newData = dataTemp.map((item) => {
-      item["loai"] = item.type?.name;
-      delete item.type;
-      return item;
-    });
-    setState({ data: newData });
-
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { listIncome } = useSelector((state) => state.income);
   
-  const [data, setData] = useState();
-  console.log(data )
+  const [pivotData, setPivotData] = useState([]);
+  
+  useEffect(() => {
+    if (listIncome && listIncome.length > 0) {
+      const data = listIncome.map((row) => ({
+        "Tháng": row.thang,
+        "Số lượng bán": formatCurrency(row.t_sl_xuat),
+        "Tiền hàng": formatCurrency(row.t_tien_hang),
+        "CK sản phẩm": formatCurrency(row.t_tien_ck),
+        "Doanh thu": formatCurrency(row.t_tien),
+        "CK hóa đơn": formatCurrency(row.tien_ck_hd),
+        "Evoucher": formatCurrency(row.tien_evoucher),
+        "Tổng tiền": formatCurrency(row.t_doanh_thu),
+        "SL trả lại": formatCurrency(row.t_sl_nhap),
+      }));
+      setPivotData(data);
+    }
+  }, [listIncome]);
 
-  const [state, setState] = useState({});
+  const [rows, setRows] = useState([]);
+  const [cols, setCols] = useState([]);
+  const [vals, setVals] = useState([]);
 
-  // Hàm export dữ liệu ra file excel
-  const handleExportClick = () => {
-    var htmlTable = document.querySelector(".pvtTable").cloneNode(true);
+  
+  const handlePivotChange = useCallback((data) => {
+    const { rows, cols } = data;
+    const newRows = [...new Set(rows)];
+    const newCols = [...new Set(cols)];
+  
+    setRows(newRows);
+    setCols(newCols);
+    setVals(data.vals);
+  }, []);
 
-    const htmlTableHead = htmlTable.querySelector("thead");
-    const htmlHeadRows = htmlTableHead.querySelectorAll("tr");
-    htmlHeadRows.forEach((headRow) => {
-      const htmlHeadCells = headRow.querySelectorAll("th");
-      htmlHeadCells.forEach((htmlCell) => {
-        const isAxisLabel = htmlCell.classList.contains("pvtAxisLabel");
-        const isColLabel = htmlCell.classList.contains("pvtColLabel");
-        const isTotalLabel = htmlCell.classList.contains("pvtTotalLabel");
-
-        if (isAxisLabel) {
-          htmlCell.setAttribute("data-a-h", "left");
-          htmlCell.setAttribute("data-a-v", "middle");
-        }
-        if (isColLabel) {
-          htmlCell.setAttribute("data-a-h", "center");
-          htmlCell.setAttribute("data-a-v", "middle");
-        }
-        if (isTotalLabel) {
-          // htmlCell.setAttribute("data-exclude", "true");
-          htmlCell.setAttribute("data-a-h", "center");
-          htmlCell.setAttribute("data-a-v", "middle");
-        }
-      });
-    });
-
-    const htmlTableBody = htmlTable.querySelector("tbody");
-    const htmlBodyRows = htmlTableBody.querySelectorAll("tr");
-    htmlBodyRows.forEach((bodyRow) => {
-      const htmlBodyCells = bodyRow.querySelectorAll("th, td");
-      htmlBodyCells.forEach((htmlCell) => {
-        const isRowLabel = htmlCell.classList.contains("pvtRowLabel");
-        const isValue = htmlCell.classList.contains("pvtVal");
-        const isTotal = htmlCell.classList.contains("pvtTotal");
-        const isTotalLabel = htmlCell.classList.contains("pvtTotalLabel");
-        const isGrandTotal = htmlCell.classList.contains("pvtGrandTotal");
-
-        if (isRowLabel) {
-          htmlCell.setAttribute("data-a-h", "left");
-          htmlCell.setAttribute("data-a-v", "middle");
-        }
-        if (isValue) {
-          htmlCell.setAttribute("data-a-h", "right");
-          htmlCell.setAttribute("data-a-v", "middle");
-          htmlCell.setAttribute("data-t", "n");
-        }
-        if (isTotal || isTotalLabel || isGrandTotal) {
-          // htmlCell.setAttribute("data-exclude", "true");
-          htmlCell.setAttribute("data-a-h", "right");
-          htmlCell.setAttribute("data-a-v", "middle");
-          htmlCell.setAttribute("data-t", "s");
-        }
-      });
-    });
-
-    tableToExcel.convert(htmlTable, { name: "mine.xlsx" });
-  };
-
-
+  const PlotlyRenderers = createPlotlyRenderers(Plotly);
+  
   return (
- 
-                <>
-                  <button
-                    className="btn__export"
-                    onClick={() => handleExportClick()}
-                  >
-                    Xuất Excel
-                  </button>
-
-                  {/* Sử dụng chart */}
-                  <PivotTableUI
-                    //renderres
-                    renderers={Object.assign(
-                      {},
-                      TableRenderers,
-                      PlotlyRenderers
-                    )}
-                    data={data}
-                    {...state}
-                    onChange={(s) => {
-                      console.log(s)
-                      setState(s);
-                    }}
-                    unusedOrientationCutoff={Infinity}
-                  />
-                </>
+    <div>
+      {pivotData.length > 0 && (
+        <PivotTableUI
+          data={pivotData}
+          onChange={handlePivotChange && handlePivotChange}
+          renderers={Object.assign({}, TableRenderers || {}, PlotlyRenderers || {})}
+          aggregators={aggregators}
+          rows={rows}
+          cols={cols}
+          vals={vals}
+          unusedOrientationCutoff={Infinity}
+        />
+      )}
+    </div>
   );
 }

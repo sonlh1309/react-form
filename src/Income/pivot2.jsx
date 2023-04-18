@@ -99,28 +99,29 @@ const Pivot2 = () => {
 
   return (
     <>
-      <Button
-        className="btn__export"
-        onClick={(event) => { event.preventDefault(); handleExportClick() }}
-      >
-        Xuất Excel
-      </Button>
-
-      {/* Sử dụng chart */}
-      <PivotTableUI
-        //renderres
-        renderers={Object.assign(
-          {},
-          TableRenderers,
-          PlotlyRenderers
-        )}
-        data={data}
-        {...state}
-        onChange={(s) => {
-          setState(s);
-        }}
-        unusedOrientationCutoff={Infinity}
-      />
+      {data.length > 0 && (
+        <>
+        <Button
+          className="btn__export"
+          onClick={(event) => { event.preventDefault(); handleExportClick() }}
+        >
+          Xuất Excel
+        </Button>
+        <PivotTableUI
+          renderers={Object.assign(
+            {},
+            TableRenderers,
+            PlotlyRenderers
+          )}
+          data={data}
+          {...state}
+          onChange={(s) => {
+            setState(s);
+          }}
+          unusedOrientationCutoff={Infinity}
+        />
+        </>
+      )}
     </>
   );
 };

@@ -180,6 +180,7 @@ export default function Income() {
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Kho</Form.Label>
               <Form.Select id="kho" >
+                <option value="">-- Chọn kho --</option>
                 <Kho/>  
                 <option></option>
               </Form.Select>
@@ -187,6 +188,7 @@ export default function Income() {
             <Form.Group className="mb-3">
               <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đơn vị</Form.Label>
               <Form.Select id="dvcs" >
+                <option value="">-- Chọn đơn vị --</option>
                  <Donvi />
                 <option></option>
               </Form.Select>

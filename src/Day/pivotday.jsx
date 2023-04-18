@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { formatCurrency } from '../utils/myUtils';
+import { formatCurrency,formatDateDisplay } from '../utils/myUtils';
 import tableToExcel from "@linways/table-to-excel";
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 // import 'react-pivottable/pivottable.css';
@@ -25,7 +25,7 @@ const PivotDay = () => {
   useEffect(() => {
     if (listDay && listDay.length > 0) {
       const newData = listDay.map((row) => ({
-        'Ngày chứng từ': row.ngay_ct,
+        'Ngày chứng từ': formatDateDisplay(row.ngay_ct),
         'Số lượng bán': formatCurrency(row.t_sl_xuat),
         'Tiền hàng': formatCurrency(row.t_tien_hang),
         'CK sản phẩm': formatCurrency(row.t_tien_ck),
@@ -42,6 +42,7 @@ const PivotDay = () => {
 
 
   const handleExportClick = () => {
+
     var htmlTable = document.querySelector(".pvtTable").cloneNode(true);
 
     const htmlTableHead = htmlTable.querySelector("thead");
@@ -98,14 +99,14 @@ const PivotDay = () => {
       });
     });
 
-    tableToExcel.convert(htmlTable, { name: "mine.xlsx" });
-  };
+    tableToExcel.convert(htmlTable, { name: "Pivotday.xlsx" });
+  }; 
   return (
   
     <>
     <button
       className="btn__export"
-      onClick={() => handleExportClick()}
+      onClick={(event) => { event.preventDefault(); handleExportClick() }}
     >
       Xuất Excel
     </button>

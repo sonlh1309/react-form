@@ -7,7 +7,7 @@ export const getIncomeAction = (token, nam, dvcs, kho) => {
     try {
       
       const res = await callApis(
-        `api/60939744ac969b4078488026/dtbanletheothang?t=1&cType=$and&nam=${nam}${dvcs ? `&ma_dvcs=${dvcs}` : ''}${kho ? `&ma_kho=${kho}` : ''}&access_token=${token}`,
+        `api/60939744ac969b4078488026/dtbanletheothang?t=1&cType=$and&nam=${nam ? `${nam}` : '2022'}${dvcs ? `&ma_dvcs=${dvcs}` : ''}${kho ? `&ma_kho=${kho}` : ''}&access_token=${token}`,
         "GET"
       );
       await dispatch(getIncome(res.data));
