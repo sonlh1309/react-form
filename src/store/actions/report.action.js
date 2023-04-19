@@ -1,7 +1,7 @@
 import { getReport } from "../reducers/report.reducer";
 
 import callApi from "../../utils/callApi";
-import callApis from "../../utils/callApis";
+
 export const getReportAction = () => {
 
   const get = async (dispatch) => {

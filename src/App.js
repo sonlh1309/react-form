@@ -33,6 +33,8 @@ import Day from './Day/Day.page';
 import Quy from './Quy/Quy.page';
 import Year from './Year/Year.page';
 
+import Chitietsp from './Chitiet/Chitiet.page';
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -83,6 +85,10 @@ const App = () => {
                         key: '2.4',
                         label: <Link to="/dtbanletheonam">Doanh thu bán lẻ theo năm</Link>,
                       },
+                      {
+                        key: '2.5',
+                        label: <Link to="/dtbanletheovt">Doanh thu bán lẻ theo sản phẩm</Link>,
+                      },
                     ]
                   },
                   {
@@ -128,7 +134,8 @@ const App = () => {
                   <Route path="/dtbanletheonam" element={<Income />} /> 
                   <Route path="/dtbanletheongay" element={<Day />} /> 
                   <Route path="/dtbanletheoquy" element={<Quy />} /> 
-                  <Route path="/dtbanletheonam" element={<Year/>} /> 
+                  <Route path="/dtbanletheonam" element={<Year />} /> 
+                  <Route path="/dtbanletheovt" element={<Chitietsp/>} /> 
                   <Route path="/Product" element={<Product />} /> 
                   <Route path="/Product/new" element={<ProductAdd />} /> 
                   <Route path="/Product/edit" element={<ProductAdd/>} /> 

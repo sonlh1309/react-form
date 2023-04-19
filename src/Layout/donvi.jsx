@@ -32,7 +32,7 @@ export default function Donvi(props) {
     <>
       {listDonvi &&
         listDonvi.map((item, index) => (
-          <option key={index} value={item._id}>
+          <option style={{ fontSize:'13px' }} key={index} value={item._id}>
             {item.ten_dvcs}
           </option>
       ))}   

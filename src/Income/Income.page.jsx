@@ -155,7 +155,7 @@ export default function Income() {
         <Button  className="button btn_header_table " onClick={handleButtonClick}>
           <span className="button__title " >Xem</span>
         </Button>
-        <Button className="button btn_header_table" onclick={exportToExcel}>
+        <Button className="button btn_header_table" onClick={exportToExcel}>
           <PrintIcon/>
         </Button>
         <Button className="button btn-white" > 

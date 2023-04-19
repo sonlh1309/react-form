@@ -1,17 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import DataTable from "react-data-table-component";
-
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { formatCurrency, formatDateDisplay } from "../utils/myUtils";
-import PrintIcon from '@mui/icons-material/Print';
 import "react-datepicker/dist/react-datepicker.css";
 import {Col,Form} from 'react-bootstrap';
 import { getDayAction } from "../store/actions/day.action";
-// import { getKhoAction } from "../store/actions/report.action";
-import { getKhoAction } from "../store/actions/kho.action";
-import { getDonviAction } from "../store/actions/donvi.action";
-import Search2 from "../Layout/search";
 import './day.css'
 import { Button } from "antd";
 import {
@@ -21,9 +14,12 @@ import {
   MDBTabsLink,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import PivotDay from "./pivotday";
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
+
 
 export default function Day(props) {
 
@@ -47,8 +43,10 @@ export default function Day(props) {
   }, [dispatch, fromDate, toDate , dvcs , kho]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if (isButtonClicked) {
+      fetchData();
+    }
+  }, [isButtonClicked,fetchData]);
 
   useEffect(() => {
     if (isButtonClicked) {
@@ -60,8 +58,8 @@ export default function Day(props) {
     setIsButtonClicked(true);
     setFromDate(document.getElementById("fromdate").value);
     setToDate(document.getElementById("todate").value);
-      setDvcs(document.getElementById("dvcs").value);
-      setKho(document.getElementById("kho").value);
+    setDvcs(document.getElementById("dvcs").value);
+    setKho(document.getElementById("kho").value);
 
   };
   
@@ -125,20 +123,6 @@ export default function Day(props) {
     
 
   const conditionalRowStyles = [
-    // {
-    //   when: (row) => listDay.indexOf(row) % 2 === 0,
-    //   style: {
-    //     backgroundColor: "#F9F9F9",
-    //     color: "#000",
-    //   },
-    // },
-    // {
-    //   when: (row) => listDay.indexOf(row) % 2 !== 0,
-    //   style: {
-    //     backgroundColor: "#fff",
-    //     color: "#000",
-    //   },
-    // },
   ];
 
   return (
@@ -160,11 +144,12 @@ export default function Day(props) {
           <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px' }}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Từ ngày</Form.Label>
+            {/* <DatePicker selected={fromDate} onChange={(e) => setFromDate(e.target.value)} /> */}
             <Form.Control
               type="date"
-                name="doj"
-                id="fromdate"
-              defaultValue="fromdate"
+              name="doj"
+              id="fromdate"
+              defaultValue={fromDate}
               placeholder="Date of Joining"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
@@ -174,9 +159,9 @@ export default function Day(props) {
             <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Đến ngày</Form.Label>
             <Form.Control 
               type="date" 
-                name="doj" 
-                id="todate"
-                defaultValue={toDate}
+              name="doj" 
+              id="todate"
+              defaultValue={toDate}
               placeholder="Date of Joining" 
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}

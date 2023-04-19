@@ -26,11 +26,11 @@ import { Button } from "antd";
 import { saveAs } from 'file-saver';
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
-import { getQuyAction } from "../store/actions/Quy.action";
+import { getQuyAction,getQuychitietAction } from "../store/actions/Quy.action";
 import Pivotquy from "./pivotquy";
 
 
-export default function Quy() {
+export default function Quy(props) {
   const dispatch = useDispatch()
   const { listQuy } = useSelector((state) => state.quy);
   const [data, setData] = useState(listQuy);
@@ -44,12 +44,14 @@ export default function Quy() {
 
 
     const fetchData = useCallback(() => {
-      dispatch(getQuyAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
+      dispatch(getQuychitietAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
     }, [dispatch,year,dvcs,kho]);
 
     useEffect(() => {
-      fetchData();
-    }, [fetchData]);
+      if (isButtonClicked) {
+        fetchData();
+      }
+    }, [isButtonClicked, fetchData]);
 
     useEffect(() => {
       if (isButtonClicked) {
@@ -157,7 +159,7 @@ export default function Quy() {
         <Button  className="button btn_header_table " onClick={handleButtonClick}>
           <span className="button__title " >Xem</span>
         </Button>
-        <Button className="button btn_header_table" onclick={exportToExcel}>
+        <Button className="button btn_header_table" onClick={exportToExcel}>
           <PrintIcon/>
         </Button>
         <Button className="button btn-white" > 

@@ -8,6 +8,10 @@ import KhoReducer from "./kho.reducer";
 import donviReducer from "./donvi.reducer";
 import QuyReducer from "./Quy.reducer";
 import YearReducer from "./Year.reducer";
+import chitietReducer from "./chitiet.reducer";
+import vattuReducer from "./vattu.reducer";
+import thanhtoanReducer from "./thanhtoan.reducer";
+
 
 
 
@@ -22,7 +26,9 @@ export default configureStore({
     kho: KhoReducer,
     donvi: donviReducer,
     quy: QuyReducer,
-    year: YearReducer
+    chitiet: chitietReducer,
+    vattu: vattuReducer,
+    thanhtoan: thanhtoanReducer
   },
   
 })

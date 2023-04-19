@@ -2,15 +2,35 @@ import { getQuy } from "../reducers/Quy.reducer";
 import callApis from "../../utils/callApis";
 
 
-export const getQuyAction = (token, nam, dvcs, kho) => {
+
+
+export const getQuyAction = (token) => {
+
   const get = async (dispatch) => {
     try {
-      
       const res = await callApis(
-        `api/60939744ac969b4078488026/dtbanletheoquy?t=1&cType=$and&nam=${nam ? `${nam}` : '2022'}${dvcs ? `&ma_dvcs=${dvcs}` : ''}${kho ? `&ma_kho=${kho}` : ''}&access_token=${token}`,
-        "GET"
+        `public/tableinfo/dtbanletheoquy`,
+        "GET",
       );
-      await dispatch(getQuy(res.data));
+        await dispatch(getQuy(res.data));
+    } catch (err) {
+      console.log(err); 
+    }
+  };
+  return get;
+};
+
+
+export const getQuychitietAction = (token, nam, dvcs, kho) => {
+  const get = async (dispatch) => {
+    try {
+      if (nam) {
+        const res = await callApis(
+          `api/60939744ac969b4078488026/dtbanletheoquy?t=1&cType=$and&nam=${nam}${dvcs ? `&ma_dvcs=${dvcs}` : ''}${kho ? `&ma_kho=${kho}` : ''}&access_token=${token}`,
+          "GET"
+        );
+        await dispatch(getQuy(res.data));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -19,8 +39,6 @@ export const getQuyAction = (token, nam, dvcs, kho) => {
 };
 
 
-
-  
 
  // if (res && res.data) {
       //   // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop

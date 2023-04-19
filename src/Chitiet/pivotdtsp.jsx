@@ -15,29 +15,32 @@ import createPlotlyComponent from "react-plotly.js/factory";
 const Plot = createPlotlyComponent(window.Plotly);
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-const PivotDay = () => {
+const PivotDtsp = () => {
 
-  const { listDay } = useSelector((state) => state.day);
+  const { listChitiet } = useSelector((state) => state.chitiet);
 
   const [data, setData] = useState();
   const [state, setState] = useState({});
 
   useEffect(() => {
-    if (listDay && listDay.length > 0) {
-      const newData = listDay.map((row) => ({
-        'Ngày chứng từ': formatDateDisplay(row.ngay_ct),
-        'Số lượng bán': formatCurrency(row.t_sl_xuat),
-        'Tiền hàng': formatCurrency(row.t_tien_hang),
-        'CK sản phẩm': formatCurrency(row.t_tien_ck),
-        'Doanh thu': formatCurrency(row.t_tien),
-        'CK hóa đơn': formatCurrency(row.tien_ck_hd),
-        Evoucher: formatCurrency(row.tien_evoucher),
-        'Tổng tiền': formatCurrency(row.t_doanh_thu),
-        'SL trả lại': formatCurrency(row.t_sl_nhap),
+    if (listChitiet && listChitiet.length > 0) {
+      const newData = listChitiet.map((row) => ({
+        'Ngày': formatDateDisplay(row.ngay_ct),
+        'Số chứng từ':  row.so_ct,
+        'Mã chứng từ':  row.ma_ct,
+        'Mã sản phẩm':  row.ma_vt,
+        'Tên sản phẩm': row.ten_vt,
+        'Kho/cửa hàng': row.ten_kho,
+        'Số lượng bán': row.t_sl_xuat,
+        'Doanh thu': formatCurrency(row.t_tien_hang),
+        'VAT': row.tien_thue_nk,
+        'SL trả lại': row.sl_nhap,
+        'Tiền trả lại': formatCurrency(row.tien_tl),
+        'Phương thức thanh toán': formatCurrency(row.ten_pt_thanh_toan),
       }));
       setData(newData);
     }
-  }, [listDay]);
+  }, [listChitiet]);
 
 
 
@@ -104,31 +107,28 @@ const PivotDay = () => {
   return (
   
     <>
-      <Button
-        className="btn__export"
-        onClick={(event) => { event.preventDefault(); handleExportClick() }}
-      >
-        Xuất Excel
-      </Button>
+    <Button
+      className="btn__export"
+      onClick={(event) => { event.preventDefault(); handleExportClick() }}
+    >
+      Xuất Excel
+    </Button>
+    <PivotTableUI
+      renderers={Object.assign(
+        {},
+        TableRenderers,
+        PlotlyRenderers
+      )}
+      data={data}
+      {...state}
+      onChange={(s) => {
 
-      {/* Sử dụng chart */}
-      <PivotTableUI
-        //renderres
-        renderers={Object.assign(
-          {},
-          TableRenderers,
-          PlotlyRenderers
-        )}
-        data={data}
-        {...state}
-        onChange={(s) => {
-
-          setState(s);
-        }}
-        unusedOrientationCutoff={Infinity}
-      />
-    </>
+        setState(s);
+      }}
+      unusedOrientationCutoff={Infinity}
+    />
+  </>
   );
 };
 
-export default PivotDay;
+export default PivotDtsp;
