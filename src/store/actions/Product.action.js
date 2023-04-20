@@ -18,10 +18,9 @@ export const getProductAction = (token) => {
   return get;
 };
 
-export const addProductAction = (data) => {
+export const addProductAction = (token,data) => {
   const add = async (dispatch) => {
     try {
-      const token = "2261dbde9b4b5893c15badbfbf1cb571";
       const res1 = await callApi(
         `api/62e0b3885271e2560e8bb7d3/quocgia?access_token=${token}`,
         "POST",

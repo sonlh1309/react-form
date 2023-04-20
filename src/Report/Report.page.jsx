@@ -21,17 +21,8 @@ export default function Report(props) {
   const dispatch = useDispatch();
 
   const { listReport } = useSelector((state) => state.report);
-
+  const { tokenUser } = useSelector((state) => state.user);
   const [data, setData] = useState(listReport);
-
-  const fetchData = useCallback(() => {
-    dispatch(getReportAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   useEffect(() => {
     setData(listReport);
   }, [listReport]);
@@ -47,7 +38,7 @@ export default function Report(props) {
         if (!endDate) { 
           endDate = new Date();
         }
-        newData = await searchReportAction(text, startDate, endDate);
+        newData = await searchReportAction(tokenUser,text, startDate, endDate  );
         setData(newData);
     }
   };

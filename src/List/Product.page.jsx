@@ -50,14 +50,6 @@ export default function Product(props) {
       });
     }
   };
-  const fetchData = useCallback(() => {
-    dispatch(getProductAction("2261dbde9b4b5893c15badbfbf1cb571"));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   useEffect(() => {
     setData(listProduct);
   }, [listProduct]);

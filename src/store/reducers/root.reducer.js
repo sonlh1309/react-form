@@ -11,6 +11,7 @@ import YearReducer from "./Year.reducer";
 import chitietReducer from "./chitiet.reducer";
 import vattuReducer from "./vattu.reducer";
 import thanhtoanReducer from "./thanhtoan.reducer";
+import userReducer from "./user.reducer";
 
 
 
@@ -19,6 +20,7 @@ import thanhtoanReducer from "./thanhtoan.reducer";
 
 export default configureStore({
   reducer: {
+    user: userReducer,
     report: ReportReducer,
     income: IncomeReducer,
     product: ProductReducer,
@@ -28,7 +30,12 @@ export default configureStore({
     quy: QuyReducer,
     chitiet: chitietReducer,
     vattu: vattuReducer,
-    thanhtoan: thanhtoanReducer
+    thanhtoan: thanhtoanReducer,
+    
   },
-  
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }),
+});

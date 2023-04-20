@@ -1,20 +1,19 @@
-
-// import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
+import { useEffect, useState } from "react";
 import Income from './Income/Income.page';
+import Cookies from "js-cookie";
 import Report from './Report/Report.page';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
-import { Navbar, Nav } from "react-bootstrap";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Divider from '@mui/material/Divider'
+import { useDispatch, useSelector } from "react-redux";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import './App.css'
+import Dropdown from "react-bootstrap/Dropdown";
+
+
+import { getDetailUserAction, saveTokenToReduxAction } from './store/actions/user.action';
+import { deleteDetailUser } from './store/reducers/user.reducer';
+
 
 import {
   HomeOutlined,
@@ -34,119 +33,97 @@ import Quy from './Quy/Quy.page';
 import Year from './Year/Year.page';
 
 import Chitietsp from './Chitiet/Chitiet.page';
+import Loading from './component/Loading/Loading.component';
+import { getChitietAction } from './store/actions/chitiet.action';
+import { getDayAction } from './store/actions/day.action';
+import { getDonviAction } from './store/actions/donvi.action';
+import { getIncomeAction } from './store/actions/Income.action.';
+import { getKhoAction } from './store/actions/kho.action';
+import { getProductAction } from './store/actions/Product.action';
+import { getQuyAction } from './store/actions/Quy.action';
+import { getReportAction } from './store/actions/report.action';
+import { getThanhtoanAction } from './store/actions/thanhtoan.action';
+import { getVattuAction } from './store/actions/vattu.action';
+import { getYearAction } from './store/actions/Year.action';
+import Home from './Home/Home.page';
+import Login from './Login/Login.page';
+import Signup from './Signup/Signup.page';
+
 
 
 const { Header, Sider, Content } = Layout;
 
 const App = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+
+  const dispatch = useDispatch();
+  const { detailUser, tokenUser } = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const token = await Cookies.get("token");
+      if (token) {
+        await dispatch(saveTokenToReduxAction(token));
+        const res = await dispatch(getDetailUserAction(token));
+        if (!res.data) {
+          await Cookies.remove("token");
+          await dispatch(deleteDetailUser());
+        }
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    };
+
+    getUser();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const fetch = () => {
+      if (tokenUser) {
+        dispatch(getChitietAction(tokenUser));
+        dispatch(getDayAction(tokenUser));
+        dispatch(getDonviAction(tokenUser));
+        dispatch(getIncomeAction(tokenUser));
+        dispatch(getKhoAction(tokenUser));
+        dispatch(getProductAction(tokenUser));
+        dispatch(getQuyAction(tokenUser));
+        dispatch(getReportAction(tokenUser));
+        dispatch(getThanhtoanAction(tokenUser));
+        dispatch(getVattuAction(tokenUser));
+        dispatch(getYearAction(tokenUser));
+      }
+    };
+    fetch();
+  }, [tokenUser]);
+
+  if (loading) {
+    return <Loading/>;
+  }
+
 
   return (
     <>
-      <div id='wrapper' >
-        <Router>
-          <Layout style={{ width: '100%', backgroundColor: 'white', height: '900px' }}>
-            <Sider trigger={null} collapsible collapsed={collapsed} style={{ backgroundColor: ' rgba(0, 0, 0, 0.1)' }}> 
-              <div className="logo"  >
-                {/* <a className="logo" href='/'  ></a> */}
-              </div>
-              <Menu className=''  style={{ height:"100%" }}
-                theme="light"
-                width="100%"
-                mode="inline"
-                defaultSelectedKeys={['1']}
-                items={[
-                  {
-                    key: '1',
-                    icon: <HomeOutlined />,
-                    label: <Link to="/">Dashboard</Link>,
-                  },
-                  {
-                    key: '2',
-                    icon: <UserOutlined />,
-                    label: 'Bán hàng',
-                    children: [
-                      {
-                        key: '2.1',
-                        label: <Link to="/dtbanletheongay">Doanh thu bán lẻ theo ngày</Link>,
-                      },
-                      {
-                        key: '2.2',
-                        label: <Link to="/dtbanletheonam">Doanh thu bán lẻ theo tháng</Link>,
-                      },
-                      {
-                        key: '2.3',
-                        label: <Link to="/dtbanletheoquy">Doanh thu bán lẻ theo quý</Link>,
-                      },
-                      {
-                        key: '2.4',
-                        label: <Link to="/dtbanletheonam">Doanh thu bán lẻ theo năm</Link>,
-                      },
-                      {
-                        key: '2.5',
-                        label: <Link to="/dtbanletheovt">Doanh thu bán lẻ theo sản phẩm</Link>,
-                      },
-                    ]
-                  },
-                  {
-                    key: '3',
-                    icon: <StockOutlined />,
-                    label: 'Báo cáo' ,
-                    children: [
-                      {
-                        key: '3.1',
-                        label: <Link to="/">Báo cáo cuối ngày bán hàng</Link>,
-                      },
-                      {
-                        key: '3.2',
-                        label: <Link to="/Report">Báo cáo bán hàng theo thời gian </Link>,
-                      },
-                    ]
-                  },
-                  {
-                    key: '4',
-                    icon: <UploadOutlined />,
-                    label: <Link to="/Product">Product</Link>,
-                  },
-                ]}
-              />
-            </Sider>
-            <Layout className="site-layout" >
-              <Header style={{ padding: 0, background: colorBgContainer }}>
-                {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                  className: 'trigger',
-                  onClick: () => setCollapsed(!collapsed),
-                })}
-              </Header>
-              <Content 
-                style={{
-                  margin: '24px 16px',
-                  height: '100%',
-          
-                  background: colorBgContainer,
-                }}
-              >
-                <Routes>
-                  <Route path="/Report" element={<Report />} /> 
-                  <Route path="/dtbanletheonam" element={<Income />} /> 
-                  <Route path="/dtbanletheongay" element={<Day />} /> 
-                  <Route path="/dtbanletheoquy" element={<Quy />} /> 
-                  <Route path="/dtbanletheonam" element={<Year />} /> 
-                  <Route path="/dtbanletheovt" element={<Chitietsp/>} /> 
-                  <Route path="/Product" element={<Product />} /> 
-                  <Route path="/Product/new" element={<ProductAdd />} /> 
-                  <Route path="/Product/edit" element={<ProductAdd/>} /> 
-                </Routes>
-              </Content>
-            </Layout>
-          </Layout>
-        </Router>
-      </div>
-    </> 
-  );
+      <HashRouter>
+        <Routes>
+          <Route
+            path="*"
+            element={
+              detailUser ? <Home /> : <Navigate replace to="/login" />
+            }
+          />
+          <Route
+            path="/login"
+            element={detailUser ? <Navigate replace to="/" /> : <Login />}
+          />
+          <Route
+            path="/signup"
+            element={detailUser ? <Navigate replace to="/" /> : <Signup />}
+          />
+        </Routes>
+      </HashRouter> 
+    </>
+  )
 }
 
 export default App;

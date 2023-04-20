@@ -3,25 +3,7 @@ import callApis from "../../utils/callApis";
 
 
 
-
-export const getQuyAction = (token) => {
-
-  const get = async (dispatch) => {
-    try {
-      const res = await callApis(
-        `public/tableinfo/dtbanletheoquy`,
-        "GET",
-      );
-        await dispatch(getQuy(res.data));
-    } catch (err) {
-      console.log(err); 
-    }
-  };
-  return get;
-};
-
-
-export const getQuychitietAction = (token, nam, dvcs, kho) => {
+export const getQuyAction = (token, nam, dvcs, kho) => {
   const get = async (dispatch) => {
     try {
       if (nam) {
@@ -31,6 +13,7 @@ export const getQuychitietAction = (token, nam, dvcs, kho) => {
         );
         await dispatch(getQuy(res.data));
       }
+
     } catch (err) {
       console.log(err);
     }
@@ -39,6 +22,23 @@ export const getQuychitietAction = (token, nam, dvcs, kho) => {
 };
 
 
+
+
+  
+
+ // if (res && res.data) {
+      //   // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop
+      //   const lastData = res.data.pop();
+      //   // console.log(lastData)
+      //   // đưa dữ liệu vừa lấy lên đầu bằng hàm unshift
+      //   res.data.unshift(lastData);
+      //   // console.log(lastData)
+      // await dispatch(getIncome(res.data));
+      // }
+
+
+
+  
 
  // if (res && res.data) {
       //   // lấy ra dữ liệu cuối cùng của mảng bằng hàm pop

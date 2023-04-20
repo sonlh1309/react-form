@@ -253,3 +253,12 @@
   background-color: #fff;
   z-index: 2000;
 }
+.tool__right{
+  float: right;
+  padding: 25px 24px;
+  align-items: center;
+}
+.admin_name{
+  float: right;
+  padding: 0px 24px;
+}

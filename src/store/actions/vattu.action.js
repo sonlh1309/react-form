@@ -2,7 +2,7 @@ import { getVattu } from "../reducers/vattu.reducer";
 import callApis from "../../utils/callApis";
 
 
-export const getVattuAction = () => {
+export const getVattuAction = (token) => {
 
   const get = async (dispatch) => {
     try {

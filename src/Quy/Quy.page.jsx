@@ -26,11 +26,11 @@ import { Button } from "antd";
 import { saveAs } from 'file-saver';
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
-import { getQuyAction,getQuychitietAction } from "../store/actions/Quy.action";
+import { getQuyAction } from "../store/actions/Quy.action";
 import Pivotquy from "./pivotquy";
 
 
-export default function Quy(props) {
+export default function Quy() {
   const dispatch = useDispatch()
   const { listQuy } = useSelector((state) => state.quy);
   const [data, setData] = useState(listQuy);
@@ -44,14 +44,12 @@ export default function Quy(props) {
 
 
     const fetchData = useCallback(() => {
-      dispatch(getQuychitietAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
+      dispatch(getQuyAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
     }, [dispatch,year,dvcs,kho]);
 
     useEffect(() => {
-      if (isButtonClicked) {
-        fetchData();
-      }
-    }, [isButtonClicked, fetchData]);
+      fetchData();
+    }, [fetchData]);
 
     useEffect(() => {
       if (isButtonClicked) {
