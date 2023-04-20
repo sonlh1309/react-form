@@ -144,7 +144,6 @@ export default function Day(props) {
           <Form style={{ border: '1px solid #DDDDDD', marginTop:'60px', padding:'8px' }}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="Select" style={{color: '#333', fontSize:'15px', fontWeight:'600' }}>Từ ngày</Form.Label>
-            {/* <DatePicker selected={fromDate} onChange={(e) => setFromDate(e.target.value)} /> */}
             <Form.Control
               type="date"
               name="doj"

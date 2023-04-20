@@ -1,38 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import Income from './Income/Income.page';
 import Cookies from "js-cookie";
-import Report from './Report/Report.page';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import './App.css'
-import Dropdown from "react-bootstrap/Dropdown";
-
-
 import { getDetailUserAction, saveTokenToReduxAction } from './store/actions/user.action';
 import { deleteDetailUser } from './store/reducers/user.reducer';
 
-
-import {
-  HomeOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  StockOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-
-import Product from './List/Product.page';
-import ProductAdd from './List/ProductAdd';
-import Day from './Day/Day.page';
-import Quy from './Quy/Quy.page';
-import Year from './Year/Year.page';
-
-import Chitietsp from './Chitiet/Chitiet.page';
 import Loading from './component/Loading/Loading.component';
 import { getChitietAction } from './store/actions/chitiet.action';
 import { getDayAction } from './store/actions/day.action';
@@ -50,8 +26,6 @@ import Login from './Login/Login.page';
 import Signup from './Signup/Signup.page';
 
 
-
-const { Header, Sider, Content } = Layout;
 
 const App = () => {
 

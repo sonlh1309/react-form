@@ -104,9 +104,6 @@ export default function ChangePass() {
                   margin: "20px 10%" 
                  }}
               />
-              {/* <Button className="button" type="submit" form="form-change-pass">
-                <span className="button__title">Đổi mật khẩu</span>
-              </Button> */}
             </Form>
           </div>
         </div>
