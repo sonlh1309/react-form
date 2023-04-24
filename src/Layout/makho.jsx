@@ -16,19 +16,10 @@ export default function Kho(props) {
   const { listKho } = useSelector((state) => state.kho); 
   const [data, setData] = useState(listKho);
 
-
-  // kho
-  const fetchData1 = useCallback(() => {
-    dispatch(getKhoAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData1();
-  }, [fetchData1]);
-
   useEffect(() => {
     setData(listKho);
   }, [listKho]);
+
 
   
 

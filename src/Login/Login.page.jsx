@@ -22,6 +22,7 @@ function Login(props) {
       Cookies.set("token", res.token, { expires: 1 });
       navigate("/");
     }
+  
   };
   return (
     <>

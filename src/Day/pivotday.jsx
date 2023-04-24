@@ -15,16 +15,16 @@ import createPlotlyComponent from "react-plotly.js/factory";
 const Plot = createPlotlyComponent(window.Plotly);
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-const PivotDay = () => {
+const PivotDay = (props) => {
 
-  const { listDay } = useSelector((state) => state.day);
+  const datas = props.data;
 
   const [data, setData] = useState();
   const [state, setState] = useState({});
 
   useEffect(() => {
-    if (listDay && listDay.length > 0) {
-      const newData = listDay.map((row) => ({
+    if (datas && datas.length > 0) {
+      const newData = datas.map((row) => ({
         'Ngày chứng từ': formatDateDisplay(row.ngay_ct),
         'Số lượng bán': formatCurrency(row.t_sl_xuat),
         'Tiền hàng': formatCurrency(row.t_tien_hang),
@@ -36,8 +36,9 @@ const PivotDay = () => {
         'SL trả lại': formatCurrency(row.t_sl_nhap),
       }));
       setData(newData);
+      setState({});
     }
-  }, [listDay]);
+  }, [datas]);
 
 
 

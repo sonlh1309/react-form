@@ -4,13 +4,11 @@ import DataTable from "react-data-table-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { formatCurrency, formatDateDisplay, formatDateValue } from "../utils/myUtils";
-import PrintIcon from '@mui/icons-material/Print';
+
 import "react-datepicker/dist/react-datepicker.css";
 import {Col,Form} from 'react-bootstrap';
-import { getDayAction } from "../store/actions/day.action";
-// import { getKhoAction } from "../store/actions/report.action";
-import { getKhoAction } from "../store/actions/kho.action";
-import { getDonviAction } from "../store/actions/donvi.action";
+
+
 import './dtsp.css'
 import { Button } from "antd";
 import {
@@ -22,12 +20,12 @@ import {
 } from "mdb-react-ui-kit";
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
-import PivotDtsp from "./pivotdtsp";
 import Vattu from "../Layout/vattu";
 import Thanhtoan from "../Layout/thanhtoan";
-import { getChitietAction ,getSearchchitietAction } from "../store/actions/chitiet.action";
+import { getSearchchitietAction } from "../store/actions/chitiet.action";
+import PivotChungtu from "./pivotchungtu";
 
-export default function Chitietsp(props) {
+export default function Chungtu(props) {
 
 
   const dispatch = useDispatch();
@@ -285,7 +283,7 @@ export default function Chitietsp(props) {
               <MDBTabsPane show={basicActive === "tab2"}>
                 <Form style={{ border: '1px solid #DDDDDD', marginTop: '10px', padding: '8px' }}>
                   <div div className="content__table" style={{ marginTop: '20px', overflow: 'auto' }}>  
-                    <PivotDtsp data={data } />
+                    <PivotChungtu data={data } />
                   </div>
                 </Form>
               </MDBTabsPane>

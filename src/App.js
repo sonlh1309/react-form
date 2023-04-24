@@ -21,7 +21,7 @@ import { getReportAction } from './store/actions/report.action';
 import { getThanhtoanAction } from './store/actions/thanhtoan.action';
 import { getVattuAction } from './store/actions/vattu.action';
 import { getYearAction } from './store/actions/Year.action';
-import Home from './Home/Home.page';
+import HomePage from './Home/Home.page';
 import Login from './Login/Login.page';
 import Signup from './Signup/Signup.page';
 
@@ -44,6 +44,7 @@ const App = () => {
           await dispatch(deleteDetailUser());
         }
         setLoading(false);
+
       } else {
         setLoading(false);
       }
@@ -80,10 +81,11 @@ const App = () => {
     <>
       <HashRouter>
         <Routes>
+          
           <Route
             path="*"
             element={
-              detailUser ? <Home /> : <Navigate replace to="/login" />
+              detailUser ? <HomePage /> : <Navigate replace to="/login" />
             }
           />
           <Route

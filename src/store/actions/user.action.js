@@ -13,7 +13,7 @@ export const getTokenUserAction = (username, password) => {
   var basicAuth = "Basic " + credentials;
   const add = async (dispatch) => {
     try {
-      const res = await callApi(
+      const res = await callApis(
         `auth/local?group_id=60939745ac969b40784883ed&id_app=62e0b3885271e2560e8bb7d3`,
         "GET",
         "",

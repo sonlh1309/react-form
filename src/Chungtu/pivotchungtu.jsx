@@ -15,7 +15,7 @@ import createPlotlyComponent from "react-plotly.js/factory";
 const Plot = createPlotlyComponent(window.Plotly);
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-const PivotDtsp = (props) => {
+const PivotChungtu = (props) => {
 
   const datas = props.data;
 
@@ -132,4 +132,4 @@ const PivotDtsp = (props) => {
   );
 };
 
-export default PivotDtsp;
+export default PivotChungtu;

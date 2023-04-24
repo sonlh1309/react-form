@@ -12,6 +12,9 @@ import chitietReducer from "./chitiet.reducer";
 import vattuReducer from "./vattu.reducer";
 import thanhtoanReducer from "./thanhtoan.reducer";
 import userReducer from "./user.reducer";
+import evoucherReducer from "./evoucher.reducer";
+import chietkhauReducer from "./chietkhau.reducer";
+import groupReducer from "./group.reducer";
 
 
 
@@ -27,11 +30,14 @@ export default configureStore({
     day: dayReducer,
     kho: KhoReducer,
     donvi: donviReducer,
+    year: YearReducer,
     quy: QuyReducer,
     chitiet: chitietReducer,
     vattu: vattuReducer,
     thanhtoan: thanhtoanReducer,
-    
+    evoucher: evoucherReducer,
+    chietkhau: chietkhauReducer,
+    group: groupReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

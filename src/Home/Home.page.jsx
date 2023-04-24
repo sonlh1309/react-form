@@ -30,11 +30,12 @@ import Day from '../Day/Day.page';
 import Quy from '../Quy/Quy.page';
 import Year from '../Year/Year.page';
 import ChangePass from '../ChangePass/ChangePass.page';
+import Chungtu from '../Chungtu/Chungtu.page';
 
 const { Header, Sider, Content } = Layout;
 
 
-export default function Home() {
+export default function HomePage(props) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,6 +93,10 @@ export default function Home() {
                       },
                       {
                         key: '2.5',
+                        label: <Link to="/dtbanletheoct">Doanh thu bán lẻ theo chứng từ</Link>,
+                      },
+                      {
+                        key: '2.6',
                         label: <Link to="/dtbanletheovt">Doanh thu bán lẻ theo sản phẩm</Link>,
                       },
                     ]
@@ -154,19 +159,18 @@ export default function Home() {
                 }}
               >
                 <Routes>
-                  <Route path="/" /> 
-                  <Route path="/Report" element={<Report />} /> 
+                  {/* <Route path="/" exact component={HomePage} /> */}
+                  <Route path="/Report"           element={<Report />} /> 
                   <Route path="/dtbanletheothang" element={<Income />} /> 
                   <Route path="/dtbanletheongay"  element={<Day />} /> 
                   <Route path="/dtbanletheoquy"   element={<Quy />} /> 
                   <Route path="/dtbanletheonam"   element={<Year />} /> 
+                  <Route path="/dtbanletheoct"    element={<Chungtu />} /> 
                   <Route path="/dtbanletheovt"    element={<Chitietsp/>} /> 
                   <Route path="/Product"          element={<Product />} /> 
                   <Route path="/Product/new"      element={<ProductAdd />} /> 
                   <Route path="/Product/edit"     element={<ProductAdd />} /> 
-                  <Route path="/changepass"       element={<ChangePass/>}
-            />
-
+                  <Route path="/changepass"       element={<ChangePass/>}/>
                 </Routes>
               </Content>
             </Layout>

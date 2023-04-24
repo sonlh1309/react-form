@@ -13,15 +13,15 @@ import { Button } from 'antd';
 const Plot = createPlotlyComponent(window.Plotly);
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 
-const Pivot2 = () => {
-  const { listIncome } = useSelector((state) => state.income);
+const Pivot2 = (props) => {
 
+  const datas = props.data;
   const [data, setData] = useState([]);
   const [state, setState] = useState({});
 
   useEffect(() => {
-    if (listIncome && listIncome.length > 0) {
-      const newData = listIncome.map((row) => ({
+    if (datas && datas.length > 0) {
+      const newData = datas.map((row) => ({
         'Tháng': row.thang,
         'Số lượng bán': formatCurrency(row.t_sl_xuat),
         'Tiền hàng': formatCurrency(row.t_tien_hang),
@@ -32,9 +32,11 @@ const Pivot2 = () => {
         'Tổng tiền': formatCurrency(row.t_doanh_thu),
         'SL trả lại': formatCurrency(row.t_sl_nhap),
       }));
+     
       setData(newData);
+      setState({});
     }
-  }, [listIncome]);
+  }, [datas]);
 
   const handleExportClick = () => {
 
@@ -98,7 +100,7 @@ const Pivot2 = () => {
   }; 
 
   return (
-    <>
+    <div key={JSON.stringify(data)}>
       {data.length > 0 && (
         <>
         <Button
@@ -113,7 +115,8 @@ const Pivot2 = () => {
             TableRenderers,
             PlotlyRenderers
           )}
-          data={data}
+            data={data}
+         
           {...state}
           onChange={(s) => {
             setState(s);
@@ -122,7 +125,7 @@ const Pivot2 = () => {
         />
         </>
       )}
-    </>
+    </div>
   );
 };
 

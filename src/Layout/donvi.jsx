@@ -14,18 +14,9 @@ export default function Donvi(props) {
 
 
   // kho
-  const fetchData1 = useCallback(() => {
-    dispatch(getDonviAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData1();
-  }, [fetchData1]);
-
   useEffect(() => {
     setData(listDonvi);
   }, [listDonvi]);
-
   
 
   return (

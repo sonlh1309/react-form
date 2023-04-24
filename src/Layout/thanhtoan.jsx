@@ -13,14 +13,6 @@ export default function Thanhtoan(props) {
 
 
   // kho
-  const fetchData1 = useCallback(() => {
-    dispatch(getThanhtoanAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData1();
-  }, [fetchData1]);
-
   useEffect(() => {
     setData(listThanhtoan);
   }, [listThanhtoan]);

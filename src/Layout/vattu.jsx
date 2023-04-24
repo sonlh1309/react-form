@@ -13,14 +13,6 @@ export default function Vattu(props) {
 
 
   // kho
-  const fetchData1 = useCallback(() => {
-    dispatch(getVattuAction(""));
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchData1();
-  }, [fetchData1]);
-
   useEffect(() => {
     setData(listVattu);
   }, [listVattu]);

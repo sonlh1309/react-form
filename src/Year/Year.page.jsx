@@ -21,18 +21,19 @@ import {
   MDBTabsPane,
 } from "mdb-react-ui-kit";
 import * as XLSX from 'xlsx';
-// import pivotquy from "./pivotquy";
+
 import { Button } from "antd";
 import { saveAs } from 'file-saver';
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
 import { getQuyAction } from "../store/actions/Quy.action";
+import { getYearAction } from "../store/actions/Year.action";
 
 
 export default function Year() {
   const dispatch = useDispatch()
-  const { listQuy } = useSelector((state) => state.quy);
-  const [data, setData] = useState(listQuy);
+  const { listYear } = useSelector((state) => state.year);
+  const [data, setData] = useState(listYear);
 
   const [year, setYear] = useState('');
   const [dvcs, setDvcs] = useState('');
@@ -43,7 +44,7 @@ export default function Year() {
 
 
     const fetchData = useCallback(() => {
-      dispatch(getQuyAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
+      dispatch(getYearAction("5233108aee2aa6028dc0e1627330e87c", year, dvcs , kho ));
     }, [dispatch,year,dvcs,kho]);
 
     useEffect(() => {
@@ -52,9 +53,9 @@ export default function Year() {
 
     useEffect(() => {
       if (isButtonClicked) {
-        setData(listQuy);
+        setData(listYear);
       }
-    }, [isButtonClicked, listQuy]);
+    }, [isButtonClicked, listYear]);
   
     const handleButtonClick = () => {
       setIsButtonClicked(true);
@@ -134,7 +135,7 @@ export default function Year() {
   ];
     const conditionalRowStyles = [
       {
-        when: (row) => listQuy.indexOf(row) === 0,
+        when: (row) => listYear.indexOf(row) === 0,
         style: {
           backgroundColor: "#F9F9F9",
           color: "#000",

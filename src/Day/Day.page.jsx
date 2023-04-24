@@ -235,7 +235,7 @@ export default function Day(props) {
               <MDBTabsPane show={basicActive === "tab2"}>
                 <Form style={{ border: '1px solid #DDDDDD', marginTop: '10px', padding: '8px' }}>
                   <div div className="content__table" style={{ marginTop: '20px', overflow: 'auto' }}>  
-                  <PivotDay/>
+                    <PivotDay data={data } />
                   </div>
                 </Form>
               </MDBTabsPane>

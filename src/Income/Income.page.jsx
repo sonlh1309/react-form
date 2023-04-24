@@ -9,10 +9,6 @@ import { getIncomeAction } from "../store/actions/Income.action.";
 import {Col, Form} from 'react-bootstrap';
 import PrintIcon from '@mui/icons-material/Print';
 import './Income.css'
-import PivotTableUI from 'react-pivottable/PivotTableUI';
-import 'react-pivottable/pivottable.css';
-import createPlotlyComponent from 'react-plotly.js/factory';
-import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
 import {
   MDBTabs,
   MDBTabsContent,
@@ -20,10 +16,8 @@ import {
   MDBTabsLink,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
-import * as XLSX from 'xlsx';
 import Pivot2 from "./pivot2";
 import { Button } from "antd";
-import { saveAs } from 'file-saver';
 import Kho from "../Layout/makho";
 import Donvi from "../Layout/donvi";
 
@@ -36,8 +30,6 @@ export default function Income() {
   const [year, setYear] = useState('');
   const [dvcs, setDvcs] = useState('');
   const [kho, setKho] = useState('');
-
-  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [basicActive, setBasicActive] = useState("tab1");
 
 
@@ -50,13 +42,10 @@ export default function Income() {
     }, [fetchData]);
 
     useEffect(() => {
-      if (isButtonClicked) {
         setData(listIncome);
-      }
-    }, [isButtonClicked, listIncome]);
+    }, [listIncome]);
   
     const handleButtonClick = () => {
-      setIsButtonClicked(true);
       setYear(document.getElementById("Select").value);
       setDvcs(document.getElementById("dvcs").value);
       setKho(document.getElementById("kho").value);
@@ -132,30 +121,16 @@ export default function Income() {
       
   ];
     const conditionalRowStyles = [
-      {
-        when: (row) => listIncome.indexOf(row) === 0,
-        style: {
-          backgroundColor: "#F9F9F9",
-          color: "#000",
-        },
-      },
+     
     ];
-    const exportToExcel = () => {
 
-      const worksheet = XLSX.utils.json_to_sheet(data);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-      const data = new Blob([excelBuffer], {type: 'application/octet-stream'});
-      saveAs(data, 'data.xlsx');
-    }
   return (
     <>
       <div className=" navbars" style={{ paddingLeft:'10px', paddingRight: '10px' }}>
         <Button  className="button btn_header_table " onClick={handleButtonClick}>
           <span className="button__title " >Xem</span>
         </Button>
-        <Button className="button btn_header_table" onClick={exportToExcel}>
+        <Button className="button btn_header_table">
           <PrintIcon/>
         </Button>
         <Button className="button btn-white" > 
@@ -245,8 +220,7 @@ export default function Income() {
               <MDBTabsPane show={basicActive === "tab2"}>
                 <Form style={{ border: '1px solid #DDDDDD', marginTop: '10px', padding: '8px' }}>
                   <div div className="content__table" style={{ marginTop: '20px', overflow: 'auto' }}>  
-                  <Pivot2/>
-                    {/* <button onClick={exportToExcel}>Xuất Excel</button> */}
+                    <Pivot2 data={ data} />
                   </div>
                 </Form>
               </MDBTabsPane>
